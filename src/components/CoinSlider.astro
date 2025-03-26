@@ -1,0 +1,40 @@
+---
+// Import the coin data from the collection page
+const coins = [
+  {
+    id: 1,
+    name: "Aureo di Adriano",
+    period: "117-138 d.C.",
+    description: "Moneta d'oro coniata durante il regno dell'imperatore Adriano, raffigurante il suo profilo laureato.",
+    price: 2800,
+    image: "/coin.png"
+  },
+  {
+    id: 2,
+    name: "Denario di Augusto",
+    period: "27 a.C. - 14 d.C.",
+    description: "Raro denario d'argento con il profilo di Augusto, primo imperatore romano.",
+    price: 1950,
+    image: "/coin.png"
+  },
+  {
+    id: 3,
+    name: "Sesterzio di Nerone",
+    period: "54-68 d.C.",
+    description: "Sesterzio in bronzo dell'imperatore Nerone con il Colosseo sul rovescio.",
+    price: 1200,
+    image: "/coin.png"
+  }
+];
+
+// Import the React Carousel component
+import { CoinCarousel } from "./CoinCarousel";
+---
+
+<div class="">
+  <h2 class="font-cinzel text-3xl text-center text-amber-300 mb-8">Monete in Evidenza</h2>
+  
+  <div class="max-w-6xl mx-auto px-4">
+    <CoinCarousel client:load coins={coins} />
+  </div>
+</div>

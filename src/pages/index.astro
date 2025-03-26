@@ -1,10 +1,10 @@
 ---
 import '../styles/global.css';
 // Component Imports
-import Button from '../components/Button.astro';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import ThreeScene from '../components/ThreeScene.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import CoinSlider from '../components/CoinSlider.astro';
 ---
 
 <html lang="en">
@@ -13,13 +13,78 @@ import Button from '../components/Button.astro';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
+		<title>LuxCoin - Authentic Roman Coins Collection</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 	</head>
 
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
+	<body class="relative">
+		<!-- Navigation -->
+		<Navbar />
+		
+		<!-- Hero Section with mosaic background -->
+		<section class="min-h-screen flex items-center relative">
+			<!-- Background image with overlay -->
+			<div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('/images/mosaic-bg.jpg'); filter: brightness(0.4);"></div>
+			<div class="relative z-10 w-full">
+				<div class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-8 items-center">
+						<div class="space-y-6">
+							<div class="mt-6">
+								<p class="text-xl md:text-2xl uppercase tracking-wider font-serif text-stone-50">
+									Esplora la nostra selezione di monete romane di lecita provenienza
+									Autentiche, ogni pezzo racconta una storia millenaria.
+								</p>
+							</div>
+							<div class="mt-8">
+								<a href="/collection" class="inline-block bg-primary hover:bg-accent text-stone-100 font-cinzel uppercase tracking-wide px-8 py-3 rounded-sm transition-colors">
+									Esplora la collezione
+								</a>
+							</div>
+						</div>
+						<div class="aspect-[1/1] relative">
+							<ThreeScene />
+						</div>
+					</div>
+		</section>
+		
+		<!-- Features Section -->
+		<section class="py-16 bg-opacity-80">
+			<div class="container mx-auto px-4">
+				<div class="grid md:grid-cols-3 gap-8">
+					<div class="bg-primary bg-opacity-70 p-8 rounded-sm text-center">
+						<h3 class="font-cinzel text-xl uppercase text-amber-300 mb-4">Lecita Provenienza</h3>
+						<p class="text-stone-300">Ogni moneta possiede un certificato autentico</p>
+						<div class="mt-6 flex justify-center">
+							<img src="/images/certified.png" alt="Certified" class="w-32 h-32 object-contain" />
+						</div>
+					</div>
+					<div class="bg-primary bg-opacity-70 p-8 rounded-sm text-center">
+						<h3 class="font-cinzel text-xl uppercase text-amber-300 mb-4">Spedizione Gratuita</h3>
+						<p class="text-stone-300">Su tutti gli ordini superiori a 50€</p>
+						<div class="mt-6 flex justify-center">
+							<img src="/images/shipping.png" alt="Free Shipping" class="w-32 h-32 object-contain" />
+						</div>
+					</div>
+					<div class="bg-primary bg-opacity-70 p-8 rounded-sm text-center">
+						<h3 class="font-cinzel text-xl uppercase text-amber-300 mb-4">Garanzia di Autenticità</h3>
+						<p class="text-stone-300">Ogni moneta è verificata da esperti numismatici</p>
+						<div class="mt-6 flex justify-center">
+							<img src="/images/authentic.png" alt="Authentic" class="w-32 h-32 object-contain" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Featured Coins Slider -->
+		<section class="py-16 bg-stone-900 bg-opacity-80">
+			<div class="container mx-auto px-4">
+				<CoinSlider />
+			</div>
+		</section>
+		
+		<!-- Footer -->
+		<Footer />
 	</body>
 </html>

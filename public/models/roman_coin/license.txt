@@ -1,0 +1,11 @@
+Model Information:
+* title:	Roman Coin - Constantine II - Zbrush sculpt
+* source:	https://sketchfab.com/3d-models/roman-coin-constantine-ii-zbrush-sculpt-df65cc0befa040969e9d5fa476e6ebaf
+* author:	Andy Woodhead (https://sketchfab.com/Andywoodhead)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Roman Coin - Constantine II - Zbrush sculpt" (https://sketchfab.com/3d-models/roman-coin-constantine-ii-zbrush-sculpt-df65cc0befa040969e9d5fa476e6ebaf) by Andy Woodhead (https://sketchfab.com/Andywoodhead) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
