@@ -27,14 +27,14 @@ const features = [
 ];
 ---
 
-<section class="py-32 bg-stone-800 bg-opacity-80">
+<section class="py-32 bg-zinc-900 bg-opacity-80">
   <div class="max-w-5xl mx-auto px-8">
     <div class="grid md:grid-cols-3 gap-8">
       {features.map((feature, index) => (
         <div class="relative group">
           <!-- Staggered background card (shadow effect) -->
-          <div class="absolute size-full left-4 top-4 group-hover:top-3 group-hover:left-3 transition-all bg-stone-900 rounded-sm"></div>
-          <div class="relative flex flex-col h-full bg-stone-700 bg-opacity-70 p-8 rounded-sm text-center z-10">
+          <div class="absolute size-full left-4 top-4 group-hover:top-3 group-hover:left-3 transition-all bg-zinc-950 rounded-sm"></div>
+          <div class="relative flex flex-col h-full bg-zinc-700 bg-opacity-70 p-8 rounded-sm text-center z-10">
             <h3 class="text-xl uppercase text-stone-100 mb-4">{feature.title}</h3>
             <p class="text-stone-300">{feature.description}</p>
             <div class={`${feature.imageClass} flex justify-center`}>

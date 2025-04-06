@@ -14,7 +14,7 @@ interface CoinCardProps {
 
 export function CoinCard({ coin }: CoinCardProps) {
   return (
-    <div className="bg-stone-800 h-full flex flex-col bg-opacity-80 rounded-sm overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="bg-zinc-900 h-full flex flex-col bg-opacity-80 rounded-sm overflow-hidden hover:shadow-lg transition-shadow">
       <div className="aspect-square overflow-hidden p-6">
         <img
           src={coin.image}

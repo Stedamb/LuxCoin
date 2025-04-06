@@ -31,7 +31,7 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
       <CarouselContent>
         {reviews.map((review) => (
           <CarouselItem key={review.id} className="basis-4/5 md:basis-1/2 lg:basis-1/3 pl-4">
-            <div className="bg-stone-800 h-full bg-opacity-80 rounded-sm overflow-hidden hover:shadow-lg transition-shadow p-6">
+            <div className="bg-zinc-900 h-full bg-opacity-80 rounded-sm overflow-hidden hover:shadow-lg transition-shadow p-6">
               <div className="flex items-center mb-4">
                 <div className="flex-shrink-0 mr-3">
                   <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-stone-100 font-bold text-xl">

@@ -35,7 +35,7 @@
     </div>
     
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-stone-900 backdrop-blur-sm flex-col items-center justify-center z-40 hidden">
+    <div id="mobile-menu" class="fixed inset-0 bg-neutral-900 backdrop-blur-sm flex-col items-center justify-center z-40 hidden">
       <button id="close-menu-button" class="absolute top-8 right-4 text-stone-100 hover:text-amber-700 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -175,7 +175,7 @@
     if (currentScroll > window.innerHeight * 0.8) {
       // After 80%, show navbar with animation
       navbar?.classList.remove('absolute', 'hidden');
-      navbar?.classList.add('fixed', 'bg-stone-900');
+      navbar?.classList.add('fixed', 'bg-neutral-900');
 
       if (currentScroll < lastScroll) {
         // Scrolling up after 80%
@@ -193,7 +193,7 @@
       navbar?.classList.add(
         'hidden',
         'fixed',
-        'bg-stone-900',
+        'bg-neutral-900',
         '!py-4'
       );
     } else {
@@ -201,7 +201,7 @@
       navbar?.classList.remove(
         'hidden',
         'fixed',
-        'bg-stone-900',
+        'bg-neutral-900',
         '!py-4'
       );
       navbar?.classList.add('absolute');

@@ -30,11 +30,11 @@ const coins = allCoins;
 			</p>
 			
 			<!-- Filters -->
-			<form id="filter-form" class="bg-stone-800 bg-opacity-70 p-6 rounded-sm mb-3">
+			<form id="filter-form" class="bg-zinc-900 bg-opacity-70 p-6 rounded-sm mb-3">
 				<div class="grid md:grid-cols-4 gap-4">
 					<div>
 						<label for="period-filter" class="block text-stone-400 mb-2 text-sm">Periodo</label>
-						<select id="period-filter" name="period" class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+						<select id="period-filter" name="period" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
 							<option value="">Tutti i periodi</option>
 							{periods.map(period => (
 								<option value={period}>{period}</option>
@@ -43,7 +43,7 @@ const coins = allCoins;
 					</div>
 					<div>
 						<label for="metal-filter" class="block text-stone-400 mb-2 text-sm">Metallo</label>
-						<select id="metal-filter" name="metal" class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+						<select id="metal-filter" name="metal" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
 							<option value="">Tutti i metalli</option>
 							<option value="gold">Oro</option>
 							<option value="silver">Argento</option>
@@ -52,7 +52,7 @@ const coins = allCoins;
 					</div>
 					<div>
 						<label for="price-filter" class="block text-stone-400 mb-2 text-sm">Prezzo</label>
-						<select id="price-filter" name="price" class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+						<select id="price-filter" name="price" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
 							{prices.map(price => (
 								<option value={price.value}>{price.label}</option>
 							))}
