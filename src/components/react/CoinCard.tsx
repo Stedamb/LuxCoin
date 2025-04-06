@@ -6,6 +6,7 @@ export interface Coin {
   price: number;
   image: string;
   slug: string;
+  metal?: string;
 }
 
 interface CoinCardProps {

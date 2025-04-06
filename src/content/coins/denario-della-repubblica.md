@@ -1,8 +1,9 @@
 ---
 id: 5
 name: "Denario della Repubblica"
-period: "211-208 a.C."
+period: "211-44 a.C."
 price: 850
 image: "/coin.png"
+metal: "Argento"
 ---
-Denario repubblicano con la dea Roma elmata e i Dioscuri a cavallo.
+Denario d'argento del periodo repubblicano, con la dea Roma sul dritto e i Dioscuri sul rovescio.

@@ -2,21 +2,22 @@
 import MainLayout from '../layouts/main.astro';
 import { CoinCard, type Coin } from '../components/react/CoinCard';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 // Get all coins from the content collection
 const allCoins = await getCollection('coins');
 
 // Extract unique values for filter options
 const periods = [...new Set(allCoins.map(coin => coin.data.period))];
+const metals = [...new Set(allCoins.map(coin => coin.data.metal))];
 const prices = [
   { label: 'Qualsiasi prezzo', value: 'any' },
   { label: 'Fino a 1000€', value: 'under1000' },
-  { label: 'Fino a 2000€', value: 'under2000' },
-  { label: 'Fino a 5000€', value: 'under5000' },
-  { label: 'Oltre 5000€', value: 'over5000' }
+  { label: '1000€ - 3000€', value: '1000to3000' },
+  { label: 'Oltre 3000€', value: 'over3000' }
 ];
 
-// Initial coins to display (all coins initially)
+// Default to showing all coins
 const coins = allCoins;
 ---
 
@@ -35,7 +36,7 @@ const coins = allCoins;
 					<div>
 						<label for="period-filter" class="block text-stone-400 mb-2 text-sm">Periodo</label>
 						<select id="period-filter" name="period" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-							<option value="">Tutti i periodi</option>
+							<option value="any">Tutti i periodi</option>
 							{periods.map(period => (
 								<option value={period}>{period}</option>
 							))}
@@ -44,10 +45,10 @@ const coins = allCoins;
 					<div>
 						<label for="metal-filter" class="block text-stone-400 mb-2 text-sm">Metallo</label>
 						<select id="metal-filter" name="metal" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-							<option value="">Tutti i metalli</option>
-							<option value="gold">Oro</option>
-							<option value="silver">Argento</option>
-							<option value="bronze">Bronzo</option>
+							<option value="any">Tutti i metalli</option>
+							{metals.map(metal => (
+								<option value={metal}>{metal}</option>
+							))}
 						</select>
 					</div>
 					<div>
@@ -58,9 +59,13 @@ const coins = allCoins;
 							))}
 						</select>
 					</div>
-					<div class="flex items-end">
+					<div class="flex items-end gap-2">
 						<button type="button" id="apply-filters" class="w-full bg-primary hover:bg-accent text-stone-100 py-2 px-4 rounded-sm transition-colors">
 							Applica Filtri
+						</button>
+						
+						<button type="button" id="reset-filters" class="hidden w-full bg-primary hover:bg-accent text-stone-100 py-2 px-4 rounded-sm transition-colors">
+							Reimposta Filtri
 						</button>
 					</div>
 				</div>
@@ -68,7 +73,7 @@ const coins = allCoins;
 			
 			<!-- Coins Grid -->
 			<div id="coins-container" class="grid grid-cols-2 lg:grid-cols-3 gap-3">
-				{coins.map((coin: { data: Coin; body: any; slug: any; }) => (
+				{coins.map(coin => (
 					<div class="coin-item" 
 						data-period={coin.data.period} 
 						data-price={coin.data.price} 
@@ -76,7 +81,7 @@ const coins = allCoins;
 					>
 						<CoinCard coin={{
 							...coin.data,
-							id: coin.slug,
+							slug: coin.slug,
 							description: coin.body
 						}} client:load />
 					</div>
@@ -106,15 +111,30 @@ const coins = allCoins;
   const coinItems = document.querySelectorAll('.coin-item');
 
   // Apply filters when the button is clicked
-  applyFiltersButton.addEventListener('click', applyFilters);
+  if (applyFiltersButton) {
+    applyFiltersButton.addEventListener('click', applyFilters);
+  }
   
   // Reset filters when the reset button is clicked
-  resetFiltersButton.addEventListener('click', resetFilters);
+  if (resetFiltersButton) {
+    resetFiltersButton.addEventListener('click', resetFilters);
+  }
 
   function applyFilters() {
+    if (!periodFilter || !metalFilter || !priceFilter || !coinsContainer || !noResultsMessage) return;
+    
     const selectedPeriod = periodFilter.value;
     const selectedMetal = metalFilter.value;
     const selectedPrice = priceFilter.value;
+
+	if (resetFiltersButton) {
+		// Mostra il pulsante di reset se almeno un filtro non è al valore predefinito
+		if (selectedPeriod !== 'any' || selectedMetal !== 'any' || selectedPrice !== 'any') {
+			resetFiltersButton.style.display = 'block';
+		} else {
+			resetFiltersButton.style.display = 'none';
+		}
+	}
     
     let visibleCount = 0;
     
@@ -125,8 +145,13 @@ const coins = allCoins;
       const price = parseInt(item.dataset.price);
       
       // Check if the coin matches all selected filters
-      let periodMatch = !selectedPeriod || period === selectedPeriod;
-      let metalMatch = !selectedMetal || metal === selectedMetal;
+      // Verifica corrispondenza periodo (mostra tutto se 'any', altrimenti verifica corrispondenza esatta)
+      let periodMatch = selectedPeriod === 'any' || period === selectedPeriod;
+      
+      // Verifica corrispondenza metallo (mostra tutto se 'any', altrimenti verifica corrispondenza esatta)
+      let metalMatch = selectedMetal === 'any' || metal === selectedMetal;
+      
+      // Prezzo inizialmente corrisponde
       let priceMatch = true;
       
       // Price range filtering
@@ -135,21 +160,18 @@ const coins = allCoins;
           case 'under1000':
             priceMatch = price < 1000;
             break;
-          case 'under2000':
-            priceMatch = price < 2000;
+          case '1000to3000':
+            priceMatch = price >= 1000 && price < 3000;
             break;
-          case 'under5000':
-            priceMatch = price < 5000;
-            break;
-          case 'over5000':
-            priceMatch = price >= 5000;
+          case 'over3000':
+            priceMatch = price >= 3000;
             break;
         }
       }
       
       // Show or hide the coin based on filter matches
       if (periodMatch && metalMatch && priceMatch) {
-        item.style.display = '';
+        item.style.display = 'block';
         visibleCount++;
       } else {
         item.style.display = 'none';
@@ -158,27 +180,34 @@ const coins = allCoins;
     
     // Show or hide the no results message
     if (visibleCount === 0) {
-      coinsContainer.classList.add('hidden');
-      noResultsMessage.classList.remove('hidden');
+      coinsContainer.style.display = 'none';
+      noResultsMessage.style.display = 'block';
     } else {
-      coinsContainer.classList.remove('hidden');
-      noResultsMessage.classList.add('hidden');
+      coinsContainer.style.display = 'grid';
+      noResultsMessage.style.display = 'none';
     }
   }
 
   function resetFilters() {
-    // Reset all filter selections
-    periodFilter.value = '';
-    metalFilter.value = '';
+    if (!periodFilter || !metalFilter || !priceFilter || !coinsContainer || !noResultsMessage) return;
+    
+    // Reset select elements to default values
+    periodFilter.value = 'any';
+    metalFilter.value = 'any';
     priceFilter.value = 'any';
+    
+    // Hide reset button
+    if (resetFiltersButton) {
+      resetFiltersButton.style.display = 'none';
+    }
     
     // Show all coins
     coinItems.forEach(item => {
-      item.style.display = '';
+      item.style.display = 'block';
     });
     
-    // Hide the no results message and show the coins container
-    coinsContainer.classList.remove('hidden');
-    noResultsMessage.classList.add('hidden');
+    // Hide no results message
+    noResultsMessage.style.display = 'none';
+    coinsContainer.style.display = 'grid';
   }
 </script>
