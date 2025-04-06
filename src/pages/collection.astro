@@ -1,167 +1,68 @@
 ---
-import '../styles/global.css';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-
-// Sample coin data
-const coins = [
-  {
-    id: 1,
-    name: "Aureo di Adriano",
-    period: "117-138 d.C.",
-    description: "Moneta d'oro coniata durante il regno dell'imperatore Adriano, raffigurante il suo profilo laureato.",
-    price: 2800,
-    image: "/coin.png"
-  },
-  {
-    id: 2,
-    name: "Denario di Augusto",
-    period: "27 a.C. - 14 d.C.",
-    description: "Raro denario d'argento con il profilo di Augusto, primo imperatore romano.",
-    price: 1950,
-    image: "/coin.png"
-  },
-  {
-    id: 3,
-    name: "Sesterzio di Nerone",
-    period: "54-68 d.C.",
-    description: "Sesterzio in bronzo dell'imperatore Nerone con il Colosseo sul rovescio.",
-    price: 1200,
-    image: "/coin.png"
-  },
-  {
-    id: 4,
-    name: "Aureo di Marco Aurelio",
-    period: "161-180 d.C.",
-    description: "Splendido aureo dell'imperatore filosofo Marco Aurelio in condizioni eccezionali.",
-    price: 3500,
-    image: "/coin.png"
-  },
-  {
-    id: 5,
-    name: "Denario della Repubblica",
-    period: "211-208 a.C.",
-    description: "Denario repubblicano con la dea Roma elmata e i Dioscuri a cavallo.",
-    price: 850,
-    image: "/coin.png"
-  },
-  {
-    id: 6,
-    name: "Solido Bizantino",
-    period: "527-565 d.C.",
-    description: "Solido d'oro dell'imperatore Giustiniano I, periodo bizantino.",
-    price: 1800,
-    image: "/coin.png"
-  }
-];
+import MainLayout from '../layouts/main.astro';
+import { CoinCard } from '../components/CoinCard';
+import { coins } from '../data/coins';
 ---
 
-<html lang="it">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Collezione - LuxCoin</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
-	</head>
-
-	<body class="bg-stone-900 text-stone-700 font-serif">
-		<div class="relative">
+<MainLayout title="Collezione - LuxCoin">
+	<!-- Collection Header -->
+	<section class="py-16">
+		<div class="container mx-auto px-4">
+			<h1 class="font-serif text-4xl md:text-5xl font-bold text-stone-100 text-center mb-8">La Nostra Collezione</h1>
+			<p class="text-xl text-center max-w-3xl mx-auto text-stone-300 mb-12">
+				Esplora la nostra selezione di monete romane autentiche, ciascuna con la propria storia millenaria e certificato di autenticità.
+			</p>
 			
-			<!-- Content -->
-			<div class="relative z-10">
-				<!-- Navigation -->
-				<Navbar />
-				
-				<!-- Collection Header -->
-				<section class="py-16">
-					<div class="container mx-auto px-4">
-						<h1 class="font-cinzel text-4xl md:text-5xl font-bold text-amber-300 text-center mb-8">La Nostra Collezione</h1>
-						<p class="text-xl text-center max-w-3xl mx-auto text-stone-300 mb-12">
-							Esplora la nostra selezione di monete romane autentiche, ciascuna con la propria storia millenaria e certificato di autenticità.
-						</p>
-						
-						<!-- Filters -->
-						<div class="bg-stone-800 bg-opacity-70 p-6 rounded-sm mb-12">
-							<div class="grid md:grid-cols-4 gap-4">
-								<div>
-									<label class="block text-stone-400 mb-2 text-sm">Periodo</label>
-									<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-										<option>Tutti i periodi</option>
-										<option>Repubblica Romana</option>
-										<option>Impero Romano</option>
-										<option>Periodo Bizantino</option>
-									</select>
-								</div>
-								<div>
-									<label class="block text-stone-400 mb-2 text-sm">Imperatore</label>
-									<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-										<option>Tutti gli imperatori</option>
-										<option>Augusto</option>
-										<option>Nerone</option>
-										<option>Adriano</option>
-										<option>Marco Aurelio</option>
-									</select>
-								</div>
-								<div>
-									<label class="block text-stone-400 mb-2 text-sm">Metallo</label>
-									<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-										<option>Tutti i metalli</option>
-										<option>Oro</option>
-										<option>Argento</option>
-										<option>Bronzo</option>
-									</select>
-								</div>
-								<div>
-									<label class="block text-stone-400 mb-2 text-sm">Prezzo</label>
-									<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-										<option>Qualsiasi prezzo</option>
-										<option>Fino a 1000€</option>
-										<option>1000€ - 2000€</option>
-										<option>2000€ - 5000€</option>
-										<option>Oltre 5000€</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						
-						<!-- Coins Grid -->
-						<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-							{coins.map(coin => (
-								<div class="bg-stone-800 bg-opacity-70 rounded-sm overflow-hidden hover:shadow-lg transition-shadow">
-									<div class="aspect-square overflow-hidden">
-										<img 
-											src={coin.image} 
-											alt={coin.name} 
-											class="w-full h-full object-cover"
-										/>
-									</div>
-									<div class="p-6">
-										<h3 class="font-cinzel text-xl text-amber-300 mb-1">{coin.name}</h3>
-										<p class="text-stone-400 text-sm mb-3">{coin.period}</p>
-										<p class="text-stone-300 mb-4">{coin.description}</p>
-										<div class="flex justify-between items-center">
-											<span class="text-amber-300 font-cinzel text-xl">{coin.price.toLocaleString()}€</span>
-											<a 
-												href={`/coin/${coin.id}`} 
-												class="bg-amber-800 hover:bg-amber-700 text-stone-100 px-4 py-2 rounded-sm font-cinzel text-sm uppercase tracking-wide transition-colors"
-											>
-												Dettagli
-											</a>
-										</div>
-									</div>
-								</div>
-							))}
-						</div>
+			<!-- Filters -->
+			<div class="bg-stone-800 bg-opacity-70 p-6 rounded-sm mb-12">
+				<div class="grid md:grid-cols-4 gap-4">
+					<div>
+						<label class="block text-stone-400 mb-2 text-sm">Periodo</label>
+						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+							<option>Tutti i periodi</option>
+							<option>Repubblica Romana</option>
+							<option>Impero Romano</option>
+							<option>Periodo Bizantino</option>
+						</select>
 					</div>
-				</section>
-				
-				<!-- Footer -->
-				<Footer />
+					<div>
+						<label class="block text-stone-400 mb-2 text-sm">Imperatore</label>
+						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+							<option>Tutti gli imperatori</option>
+							<option>Augusto</option>
+							<option>Nerone</option>
+							<option>Adriano</option>
+							<option>Marco Aurelio</option>
+						</select>
+					</div>
+					<div>
+						<label class="block text-stone-400 mb-2 text-sm">Metallo</label>
+						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+							<option>Tutti i metalli</option>
+							<option>Oro</option>
+							<option>Argento</option>
+							<option>Bronzo</option>
+						</select>
+					</div>
+					<div>
+						<label class="block text-stone-400 mb-2 text-sm">Prezzo</label>
+						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+							<option>Qualsiasi prezzo</option>
+							<option>Fino a 1000€</option>
+							<option>1000€ - 2000€</option>
+							<option>2000€ - 5000€</option>
+							<option>Oltre 5000€</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Coins Grid -->
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{coins.map(coin => (
+					<CoinCard coin={coin} client:load />
+				))}
 			</div>
 		</div>
-	</body>
-</html>
+	</section>
+</MainLayout>

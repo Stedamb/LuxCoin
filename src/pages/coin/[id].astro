@@ -1,270 +1,91 @@
 ---
-import '../../styles/global.css';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
-import ThreeScene from '../../components/ThreeScene.astro';
+import MainLayout from '../../layouts/main.astro';
+import { coins } from '../../data/coins';
+import { CoinCard } from '@/components/CoinCard';
 
-// Sample coin data - in a real app, this would come from a database
-const coins = [
-  {
-    id: 1,
-    name: "Aureo di Adriano",
-    period: "117-138 d.C.",
-    description: "Moneta d'oro coniata durante il regno dell'imperatore Adriano, raffigurante il suo profilo laureato.",
-    longDescription: "Questo aureo è stato coniato durante il regno dell'imperatore Adriano, noto per la sua politica di pace e per le grandi opere architettoniche realizzate durante il suo regno. La moneta presenta sul dritto il profilo laureato dell'imperatore rivolto a destra, con la legenda HADRIANVS AVGVSTVS. Sul rovescio è raffigurata la personificazione della Pace (Pax) seduta su un trono, che regge un ramo d'ulivo e uno scettro, con la legenda PAX AVGVSTI. L'aureo è in eccellente stato di conservazione, con dettagli ben definiti e una patina dorata uniforme.",
-    price: 2800,
-    weight: "7.2 grammi",
-    diameter: "19 mm",
-    metal: "Oro",
-    mint: "Roma",
-    grade: "Extremely Fine",
-    provenance: "Collezione privata italiana, acquisita nel 1985",
-    image: "/images/coins/adriano.jpg",
-    relatedCoins: [2, 4, 6]
-  },
-  {
-    id: 2,
-    name: "Denario di Augusto",
-    period: "27 a.C. - 14 d.C.",
-    description: "Raro denario d'argento con il profilo di Augusto, primo imperatore romano.",
-    longDescription: "Questo denario d'argento risale al periodo del primo imperatore romano Augusto, fondatore dell'Impero Romano. Sul dritto presenta il profilo di Augusto rivolto a destra, con la legenda CAESAR AVGVSTVS. Sul rovescio sono raffigurati i suoi nipoti e figli adottivi Gaio e Lucio Cesare, in piedi, con scudi e lance, e la legenda AVGVSTI F COS DESIG PRINC IVVENT. La moneta è in ottimo stato di conservazione, con dettagli ben visibili e una bella patina argentea.",
-    price: 1950,
-    weight: "3.8 grammi",
-    diameter: "17 mm",
-    metal: "Argento",
-    mint: "Lugdunum (attuale Lione)",
-    grade: "Very Fine",
-    provenance: "Ex collezione britannica, asta Christie's 2003",
-    image: "/images/coins/augusto.jpg",
-    relatedCoins: [1, 3, 5]
-  },
-  {
-    id: 3,
-    name: "Sesterzio di Nerone",
-    period: "54-68 d.C.",
-    description: "Sesterzio in bronzo dell'imperatore Nerone con il Colosseo sul rovescio.",
-    longDescription: "Questo sesterzio in bronzo è stato coniato durante il regno dell'imperatore Nerone. Sul dritto presenta il busto laureato di Nerone rivolto a destra, con la legenda NERO CLAVDIVS CAESAR AVG GER PM TR P IMP PP. Sul rovescio è raffigurato il porto di Ostia, con navi e il faro, commemorando la costruzione del nuovo porto voluto dall'imperatore. La moneta presenta una bella patina verde scuro, tipica dei bronzi antichi ben conservati, con dettagli ancora ben visibili.",
-    price: 1200,
-    weight: "25.3 grammi",
-    diameter: "32 mm",
-    metal: "Oricalco (lega di rame e zinco)",
-    mint: "Roma",
-    grade: "Fine",
-    provenance: "Collezione privata francese, acquisita nel 1998",
-    image: "/images/coins/nerone.jpg",
-    relatedCoins: [2, 4, 5]
-  },
-  {
-    id: 4,
-    name: "Aureo di Marco Aurelio",
-    period: "161-180 d.C.",
-    description: "Splendido aureo dell'imperatore filosofo Marco Aurelio in condizioni eccezionali.",
-    longDescription: "Questo aureo è stato coniato durante il regno dell'imperatore filosofo Marco Aurelio. Sul dritto presenta il busto laureato dell'imperatore rivolto a destra, con la legenda M ANTONINVS AVG ARMENIACVS PM. Sul rovescio è raffigurata la Vittoria alata in piedi che regge una palma e una corona, con la legenda TR P XVIII IMP II COS III, riferimento alle cariche ricoperte dall'imperatore. La moneta è in stato di conservazione eccezionale, con dettagli nitidi e una splendida lucentezza dorata.",
-    price: 3500,
-    weight: "7.1 grammi",
-    diameter: "20 mm",
-    metal: "Oro",
-    mint: "Roma",
-    grade: "About Uncirculated",
-    provenance: "Ex collezione svizzera, asta Numismatica Ars Classica 2010",
-    image: "/images/coins/marco_aurelio.jpg",
-    relatedCoins: [1, 3, 6]
-  },
-  {
-    id: 5,
-    name: "Denario della Repubblica",
-    period: "211-208 a.C.",
-    description: "Denario repubblicano con la dea Roma elmata e i Dioscuri a cavallo.",
-    longDescription: "Questo denario d'argento risale al periodo della Repubblica Romana, uno dei primi denari coniati a Roma. Sul dritto presenta la testa elmata della dea Roma rivolta a destra, con il segno di valore X (dieci assi) dietro. Sul rovescio sono raffigurati i Dioscuri (Castore e Polluce) a cavallo, che cavalcano in direzioni opposte, con la legenda ROMA nell'esergo. La moneta presenta una bella patina argentea con toni iridescenti, tipica dei denari repubblicani ben conservati.",
-    price: 850,
-    weight: "4.2 grammi",
-    diameter: "18 mm",
-    metal: "Argento",
-    mint: "Roma",
-    grade: "Very Fine",
-    provenance: "Collezione privata spagnola, acquisita nel 2005",
-    image: "/images/coins/repubblica.jpg",
-    relatedCoins: [2, 3, 6]
-  },
-  {
-    id: 6,
-    name: "Solido Bizantino",
-    period: "527-565 d.C.",
-    description: "Solido d'oro dell'imperatore Giustiniano I, periodo bizantino.",
-    longDescription: "Questo solido d'oro è stato coniato durante il regno dell'imperatore bizantino Giustiniano I, famoso per la sua codificazione del diritto romano e per la costruzione della basilica di Santa Sofia a Costantinopoli. Sul dritto presenta il busto frontale di Giustiniano con elmo e corazza, che regge un globo crucigero, con la legenda DN IVSTINIANVS PP AVG. Sul rovescio è raffigurata una Vittoria alata stante, che regge una lunga croce, con la legenda VICTORIA AVGGG e CONOB nell'esergo. La moneta è in eccellente stato di conservazione, con dettagli nitidi e una splendida lucentezza dorata.",
-    price: 1800,
-    weight: "4.4 grammi",
-    diameter: "21 mm",
-    metal: "Oro",
-    mint: "Costantinopoli",
-    grade: "Extremely Fine",
-    provenance: "Ex collezione americana, asta Sotheby's 2015",
-    image: "/images/coins/giustiniano.jpg",
-    relatedCoins: [1, 4, 5]
-  }
-];
-
-// Get the coin ID from the URL
-const { id } = Astro.params;
-const coinId = parseInt(id);
-
-// Find the coin with the matching ID
-const coin = coins.find(c => c.id === coinId);
-
-// Get related coins
-const relatedCoins = coin ? coins.filter(c => coin.relatedCoins.includes(c.id)) : [];
-
-// If coin not found, redirect to collection page
-if (!coin) {
-  return Astro.redirect('/collection');
+export function getStaticPaths() {
+  return coins.map(coin => ({
+    params: { id: coin.id.toString() },
+    props: { coin },
+  }));
 }
+
+const { coin } = Astro.props;
 ---
 
-<html lang="it">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{coin.name} - LuxCoin</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
-	</head>
-
-	<body class="bg-stone-900 text-stone-200 font-serif">
-		<div class="relative">
-			<!-- Background image with overlay -->
-			<div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('/images/mosaic-bg.jpg'); filter: brightness(0.4);"></div>
-			
-			<!-- Content -->
-			<div class="relative z-10">
-				<!-- Navigation -->
-				<Navbar />
-				
-				<!-- Coin Detail Section -->
-				<section class="py-16">
-					<div class="container mx-auto px-4">
-						<div class="mb-8">
-							<a href="/collection" class="text-amber-400 hover:text-amber-300 transition-colors flex items-center">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-								</svg>
-								Torna alla collezione
-							</a>
-						</div>
-						
-						<div class="grid md:grid-cols-2 gap-12 mb-16">
-							<!-- Left Column: Image and 3D Model -->
-							<div>
-								<div class="bg-stone-800 bg-opacity-70 rounded-sm overflow-hidden mb-8">
-									<img 
-										src={coin.image} 
-										alt={coin.name} 
-										class="w-full h-auto"
-									/>
-								</div>
-								
-								<div class="bg-stone-800 bg-opacity-70 rounded-sm overflow-hidden h-[300px]">
-									<ThreeScene />
-								</div>
-							</div>
-							
-							<!-- Right Column: Coin Details -->
-							<div>
-								<h1 class="font-cinzel text-3xl md:text-4xl font-bold text-amber-300 mb-2">{coin.name}</h1>
-								<p class="text-stone-400 text-lg mb-4">{coin.period}</p>
-								
-								<div class="mb-6">
-									<p class="text-2xl font-cinzel text-amber-300 mb-4">{coin.price.toLocaleString()}€</p>
-									<button class="bg-amber-800 hover:bg-amber-700 text-stone-100 px-6 py-3 rounded-sm font-cinzel uppercase tracking-wide transition-colors w-full md:w-auto">
-										Aggiungi al carrello
-									</button>
-								</div>
-								
-								<div class="border-t border-stone-700 my-6 pt-6">
-									<p class="text-stone-300 mb-6">{coin.longDescription}</p>
-									
-									<div class="grid grid-cols-2 gap-4 mb-6">
-										<div>
-											<h3 class="font-cinzel text-amber-400 mb-1">Peso</h3>
-											<p class="text-stone-300">{coin.weight}</p>
-										</div>
-										<div>
-											<h3 class="font-cinzel text-amber-400 mb-1">Diametro</h3>
-											<p class="text-stone-300">{coin.diameter}</p>
-										</div>
-										<div>
-											<h3 class="font-cinzel text-amber-400 mb-1">Metallo</h3>
-											<p class="text-stone-300">{coin.metal}</p>
-										</div>
-										<div>
-											<h3 class="font-cinzel text-amber-400 mb-1">Zecca</h3>
-											<p class="text-stone-300">{coin.mint}</p>
-										</div>
-										<div>
-											<h3 class="font-cinzel text-amber-400 mb-1">Conservazione</h3>
-											<p class="text-stone-300">{coin.grade}</p>
-										</div>
-										<div>
-											<h3 class="font-cinzel text-amber-400 mb-1">Provenienza</h3>
-											<p class="text-stone-300">{coin.provenance}</p>
-										</div>
-									</div>
-									
-									<div class="bg-amber-900 bg-opacity-30 border border-amber-800 p-4 rounded-sm">
-										<div class="flex items-start">
-											<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-amber-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-											</svg>
-											<div>
-												<h3 class="font-cinzel text-amber-400 mb-1">Garanzia di autenticità</h3>
-												<p class="text-stone-300">Ogni moneta è accompagnata da un certificato di autenticità firmato dai nostri esperti numismatici.</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<!-- Related Coins Section -->
-						{relatedCoins.length > 0 && (
-							<div>
-								<h2 class="font-cinzel text-2xl text-amber-300 mb-8 text-center">Monete correlate</h2>
-								<div class="grid md:grid-cols-3 gap-8">
-									{relatedCoins.map(relatedCoin => (
-										<div class="bg-stone-800 bg-opacity-70 rounded-sm overflow-hidden hover:shadow-lg transition-shadow">
-											<div class="aspect-square overflow-hidden">
-												<img 
-													src={relatedCoin.image} 
-													alt={relatedCoin.name} 
-													class="w-full h-full object-cover transition-transform hover:scale-105"
-												/>
-											</div>
-											<div class="p-6">
-												<h3 class="font-cinzel text-xl text-amber-300 mb-1">{relatedCoin.name}</h3>
-												<p class="text-stone-400 text-sm mb-3">{relatedCoin.period}</p>
-												<div class="flex justify-between items-center">
-													<span class="text-amber-300 font-cinzel">{relatedCoin.price.toLocaleString()}€</span>
-													<a 
-														href={`/coin/${relatedCoin.id}`} 
-														class="bg-amber-800 hover:bg-amber-700 text-stone-100 px-3 py-1 rounded-sm font-cinzel text-xs uppercase tracking-wide transition-colors"
-													>
-														Dettagli
-													</a>
-												</div>
-											</div>
-										</div>
-									))}
-								</div>
-							</div>
-						)}
-					</div>
-				</section>
-				
-				<!-- Footer -->
-				<Footer />
-			</div>
-		</div>
-	</body>
-</html>
+<MainLayout title={`${coin.name} - LuxCoin`}>
+  <section class="py-32">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Coin Image -->
+        <div class="bg-stone-800 bg-opacity-80 rounded-sm p-8 flex items-center justify-center">
+          <img 
+            src={coin.image} 
+            alt={coin.name} 
+            class="max-w-full max-h-96 object-contain"
+          />
+        </div>
+        
+        <!-- Coin Details -->
+        <div>
+          <h1 class="font-serif text-4xl md:text-5xl text-stone-100 mb-4">{coin.name}</h1>
+          <p class="text-stone-400 text-xl mb-6">{coin.period}</p>
+          
+          <div class="bg-stone-800 bg-opacity-70 p-6 rounded-sm mb-8">
+            <h2 class="font-serif text-2xl text-stone-100 mb-4">Descrizione</h2>
+            <p class="text-stone-300 text-lg leading-relaxed mb-6">{coin.description}</p>
+            
+            <div class="border-t border-stone-700 pt-6">
+              <div class="flex justify-between items-center">
+                <span class="text-stone-300 text-lg">Prezzo</span>
+                <span class="text-stone-100 font-serif text-3xl">{coin.price.toLocaleString()}€</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button class="bg-amber-800 hover:bg-amber-700 text-stone-100 px-6 py-3 rounded-sm font-serif text-lg uppercase tracking-wide transition-colors flex-1 text-center">
+              Aggiungi al Carrello
+            </button>
+            <a href="/collection" class="border border-stone-600 hover:border-stone-500 text-stone-300 px-6 py-3 rounded-sm font-serif text-lg uppercase tracking-wide transition-colors flex-1 text-center">
+              Torna alla Collezione
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Additional Information -->
+      <div class="max-w-3xl mx-auto mt-16 ">
+        <h2 class="font-serif text-3xl text-stone-100 mb-8 text-center">Dettagli Storici</h2>
+        
+        <div class="bg-stone-800 bg-opacity-70 p-8 rounded-sm">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-serif text-xl text-stone-100 mb-4">Contesto Storico</h3>
+              <p class="text-stone-300 leading-relaxed">
+                Le monete romane non erano solo un mezzo di scambio, ma anche potenti strumenti di propaganda politica. Gli imperatori utilizzavano le monete per diffondere la propria immagine e i propri messaggi in tutto l'impero, raggiungendo anche i territori più remoti.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-serif text-xl text-stone-100 mb-4">Certificato di Autenticità</h3>
+              <p class="text-stone-300 leading-relaxed">
+                Ogni moneta della nostra collezione viene fornita con un certificato di autenticità dettagliato che ne attesta l'origine, il periodo storico e lo stato di conservazione. Garantiamo l'autenticità di tutti i nostri pezzi.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Related Coins -->
+      <div class="mt-32">
+        <h2 class="font-serif text-3xl text-stone-100 mb-8 text-center">Potresti Essere Interessato Anche A</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {coins.filter(relatedCoin => relatedCoin.id !== coin.id).slice(0, 3).map(relatedCoin => (
+            <CoinCard coin={relatedCoin} client:load />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

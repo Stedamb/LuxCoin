@@ -1,0 +1,18 @@
+---
+// Import the centralized reviews data
+import { reviews } from '../data/reviews';
+
+// Import the React Carousel component
+import { ReviewCarousel } from "./ReviewCarousel";
+---
+
+<section class="py-32 bg-stone-900 bg-opacity-80">
+  <div class="container mx-auto px-4">
+    <h2 class="font-serif text-3xl text-center text-stone-100 mb-2">Recensioni dei Clienti</h2>
+    <p class="text-stone-400 text-center mb-8 max-w-2xl mx-auto">Scopri cosa dicono i nostri clienti delle monete acquistate e dell'esperienza con LuxCoin</p>
+    
+    <div class="max-w-6xl mx-auto px-4">
+      <ReviewCarousel client:load reviews={reviews} />
+    </div>
+  </div>
+</section>

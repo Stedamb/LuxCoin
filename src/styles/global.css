@@ -135,14 +135,14 @@
 
 /* Custom styles for LuxCoin */
 @layer components {
-  .font-serif {
+  /* .font-serif {
     font-family: 'Alegreya', serif;
     font-weight: 600;
-  }
-  
-  /* .font-serif {
-    font-family: 'Cormorant Garamond', serif;
   } */
+  
+  .font-serif {
+    font-family: 'Cormorant Garamond', serif;
+  } 
 }
 
 /* Smooth scrolling */
