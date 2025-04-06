@@ -23,14 +23,14 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
   return (
     <Carousel
       opts={{
-        align: "start",
+        align: "center",
         loop: true,
       }}
       className="w-full"
     >
       <CarouselContent>
         {reviews.map((review) => (
-          <CarouselItem key={review.id} className="basis-full md:basis-1/2 lg:basis-1/3 pl-4">
+          <CarouselItem key={review.id} className="basis-4/5 md:basis-1/2 lg:basis-1/3 pl-4">
             <div className="bg-stone-800 h-full bg-opacity-80 rounded-sm overflow-hidden hover:shadow-lg transition-shadow p-6">
               <div className="flex items-center mb-4">
                 <div className="flex-shrink-0 mr-3">
@@ -65,9 +65,9 @@ export function ReviewCarousel({ reviews }: ReviewCarouselProps) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="absolute bottom-[-40px] left-1/2 md:hidden">
-        <CarouselPrevious className="bg-primary hover:bg-accent border-0 text-stone-100" />
-        <CarouselNext className="bg-primary hover:bg-accent border-0 text-stone-100" />
+      <div className="absolute md:static bottom-[-40px] left-1/2">
+        <CarouselPrevious className="bg-primary hover:bg-accent border-0 text-stone-100 hover:text-stone-100" />
+        <CarouselNext className="bg-primary hover:bg-accent border-0 text-stone-100 hover:text-stone-100" />
       </div>
     </Carousel>
   );

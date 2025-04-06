@@ -18,18 +18,20 @@ import ThreeScene from './ThreeScene.astro';
     <div class="container mx-auto px-4 py-42 gap-8 lg:items-center">
       <div class="space-y-6 lg:w-1/2">
         <div class="mt-6">
-          <p class="text-xl md:text-2xl uppercase tracking-wider font-serif text-stone-50">
+          <p class="text-xl text-center md:text-start md:text-2xl uppercase tracking-wider font-serif text-stone-50">
             Esplora la nostra selezione di monete romane di lecita provenienza
             Autentiche, ogni pezzo racconta una storia millenaria.
           </p>
         </div>
-        <div class="mt-8">
+        <div class="mt-8 flex justify-center md:justify-start">
           <a href="/collection" class="inline-block bg-primary hover:bg-accent text-stone-100 font-serif uppercase tracking-wide px-8 py-3 rounded-sm transition-colors">
             Esplora la collezione
           </a>
         </div>
       </div>
     </div>
-    <img src="/statue.png" alt="Moneta" class="absolute w-full lg:w-1/2 bottom-0 left-0 lg:left-1/2">
+    <div class="absolute bottom-0 left-0 lg:left-[45%] w-full lg:w-1/2 overflow-hidden">
+      <img src="/statue.png" alt="Statua romana" class="w-full max-w-[1000px] mx-auto object-contain">
+    </div>
   </div>
 </section>
