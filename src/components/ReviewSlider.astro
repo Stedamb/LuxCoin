@@ -1,9 +1,23 @@
 ---
-// Import the centralized reviews data
-import { reviews } from '../data/reviews';
+// Import the content collection API
+import { getCollection } from 'astro:content';
 
 // Import the React Carousel component
-import { ReviewCarousel } from "./ReviewCarousel";
+import { ReviewCarousel } from "./react/ReviewCarousel";
+
+// Get all reviews from the content collection
+const reviewsCollection = await getCollection('reviews');
+
+// Transform the reviews to match the expected format
+const reviews = reviewsCollection.map(review => ({
+  id: review.data.id,
+  name: review.data.name,
+  location: review.data.location,
+  rating: review.data.rating,
+  text: review.body,
+  date: review.data.date,
+  slug: review.slug
+}));
 ---
 
 <section class="py-32 bg-stone-900 bg-opacity-80">

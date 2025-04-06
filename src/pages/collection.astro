@@ -1,68 +1,184 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import { CoinCard } from '../components/CoinCard';
-import { coins } from '../data/coins';
+import { CoinCard, type Coin } from '../components/react/CoinCard';
+import { getCollection } from 'astro:content';
+
+// Get all coins from the content collection
+const allCoins = await getCollection('coins');
+
+// Extract unique values for filter options
+const periods = [...new Set(allCoins.map(coin => coin.data.period))];
+const prices = [
+  { label: 'Qualsiasi prezzo', value: 'any' },
+  { label: 'Fino a 1000€', value: 'under1000' },
+  { label: 'Fino a 2000€', value: 'under2000' },
+  { label: 'Fino a 5000€', value: 'under5000' },
+  { label: 'Oltre 5000€', value: 'over5000' }
+];
+
+// Initial coins to display (all coins initially)
+const coins = allCoins;
 ---
 
 <MainLayout title="Collezione - LuxCoin">
 	<!-- Collection Header -->
-	<section class="py-16">
+	<section class="pt-32 pb-16">
 		<div class="container mx-auto px-4">
-			<h1 class="font-serif text-4xl md:text-5xl font-bold text-stone-100 text-center mb-8">La Nostra Collezione</h1>
+			<h1 class="font-serif text-4xl md:text-5xl text-stone-100 text-center mb-8">La Nostra Collezione</h1>
 			<p class="text-xl text-center max-w-3xl mx-auto text-stone-300 mb-12">
 				Esplora la nostra selezione di monete romane autentiche, ciascuna con la propria storia millenaria e certificato di autenticità.
 			</p>
 			
 			<!-- Filters -->
-			<div class="bg-stone-800 bg-opacity-70 p-6 rounded-sm mb-12">
+			<form id="filter-form" class="bg-stone-800 bg-opacity-70 p-6 rounded-sm mb-3">
 				<div class="grid md:grid-cols-4 gap-4">
 					<div>
-						<label class="block text-stone-400 mb-2 text-sm">Periodo</label>
-						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-							<option>Tutti i periodi</option>
-							<option>Repubblica Romana</option>
-							<option>Impero Romano</option>
-							<option>Periodo Bizantino</option>
+						<label for="period-filter" class="block text-stone-400 mb-2 text-sm">Periodo</label>
+						<select id="period-filter" name="period" class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+							<option value="">Tutti i periodi</option>
+							{periods.map(period => (
+								<option value={period}>{period}</option>
+							))}
 						</select>
 					</div>
 					<div>
-						<label class="block text-stone-400 mb-2 text-sm">Imperatore</label>
-						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-							<option>Tutti gli imperatori</option>
-							<option>Augusto</option>
-							<option>Nerone</option>
-							<option>Adriano</option>
-							<option>Marco Aurelio</option>
+						<label for="metal-filter" class="block text-stone-400 mb-2 text-sm">Metallo</label>
+						<select id="metal-filter" name="metal" class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+							<option value="">Tutti i metalli</option>
+							<option value="gold">Oro</option>
+							<option value="silver">Argento</option>
+							<option value="bronze">Bronzo</option>
 						</select>
 					</div>
 					<div>
-						<label class="block text-stone-400 mb-2 text-sm">Metallo</label>
-						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-							<option>Tutti i metalli</option>
-							<option>Oro</option>
-							<option>Argento</option>
-							<option>Bronzo</option>
+						<label for="price-filter" class="block text-stone-400 mb-2 text-sm">Prezzo</label>
+						<select id="price-filter" name="price" class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+							{prices.map(price => (
+								<option value={price.value}>{price.label}</option>
+							))}
 						</select>
 					</div>
-					<div>
-						<label class="block text-stone-400 mb-2 text-sm">Prezzo</label>
-						<select class="w-full bg-stone-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
-							<option>Qualsiasi prezzo</option>
-							<option>Fino a 1000€</option>
-							<option>1000€ - 2000€</option>
-							<option>2000€ - 5000€</option>
-							<option>Oltre 5000€</option>
-						</select>
+					<div class="flex items-end">
+						<button type="button" id="apply-filters" class="w-full bg-primary hover:bg-accent text-stone-100 py-2 px-4 rounded-sm transition-colors">
+							Applica Filtri
+						</button>
 					</div>
 				</div>
-			</div>
+			</form>
 			
 			<!-- Coins Grid -->
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-				{coins.map(coin => (
-					<CoinCard coin={coin} client:load />
+			<div id="coins-container" class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+				{coins.map((coin: { data: Coin; body: any; slug: any; }) => (
+					<div class="coin-item" 
+						data-period={coin.data.period} 
+						data-price={coin.data.price} 
+						data-metal={coin.data.metal || 'unknown'}
+					>
+						<CoinCard coin={{
+							...coin.data,
+							id: coin.slug,
+							description: coin.body
+						}} client:load />
+					</div>
 				))}
+			</div>
+
+			<!-- No Results Message -->
+			<div id="no-results" class="hidden text-center py-12">
+				<p class="text-xl text-stone-300">Nessuna moneta trovata con i filtri selezionati.</p>
+				<button id="reset-filters" class="mt-4 bg-amber-700 hover:bg-amber-600 text-stone-100 py-2 px-6 rounded-sm transition-colors">
+					Reimposta Filtri
+				</button>
 			</div>
 		</div>
 	</section>
 </MainLayout>
+
+<script>
+  // Get filter elements
+  const periodFilter = document.getElementById('period-filter');
+  const metalFilter = document.getElementById('metal-filter');
+  const priceFilter = document.getElementById('price-filter');
+  const applyFiltersButton = document.getElementById('apply-filters');
+  const resetFiltersButton = document.getElementById('reset-filters');
+  const coinsContainer = document.getElementById('coins-container');
+  const noResultsMessage = document.getElementById('no-results');
+  const coinItems = document.querySelectorAll('.coin-item');
+
+  // Apply filters when the button is clicked
+  applyFiltersButton.addEventListener('click', applyFilters);
+  
+  // Reset filters when the reset button is clicked
+  resetFiltersButton.addEventListener('click', resetFilters);
+
+  function applyFilters() {
+    const selectedPeriod = periodFilter.value;
+    const selectedMetal = metalFilter.value;
+    const selectedPrice = priceFilter.value;
+    
+    let visibleCount = 0;
+    
+    // Loop through all coin items and check if they match the filters
+    coinItems.forEach(item => {
+      const period = item.dataset.period;
+      const metal = item.dataset.metal;
+      const price = parseInt(item.dataset.price);
+      
+      // Check if the coin matches all selected filters
+      let periodMatch = !selectedPeriod || period === selectedPeriod;
+      let metalMatch = !selectedMetal || metal === selectedMetal;
+      let priceMatch = true;
+      
+      // Price range filtering
+      if (selectedPrice !== 'any') {
+        switch(selectedPrice) {
+          case 'under1000':
+            priceMatch = price < 1000;
+            break;
+          case 'under2000':
+            priceMatch = price < 2000;
+            break;
+          case 'under5000':
+            priceMatch = price < 5000;
+            break;
+          case 'over5000':
+            priceMatch = price >= 5000;
+            break;
+        }
+      }
+      
+      // Show or hide the coin based on filter matches
+      if (periodMatch && metalMatch && priceMatch) {
+        item.style.display = '';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    
+    // Show or hide the no results message
+    if (visibleCount === 0) {
+      coinsContainer.classList.add('hidden');
+      noResultsMessage.classList.remove('hidden');
+    } else {
+      coinsContainer.classList.remove('hidden');
+      noResultsMessage.classList.add('hidden');
+    }
+  }
+
+  function resetFilters() {
+    // Reset all filter selections
+    periodFilter.value = '';
+    metalFilter.value = '';
+    priceFilter.value = 'any';
+    
+    // Show all coins
+    coinItems.forEach(item => {
+      item.style.display = '';
+    });
+    
+    // Hide the no results message and show the coins container
+    coinsContainer.classList.remove('hidden');
+    noResultsMessage.classList.add('hidden');
+  }
+</script>

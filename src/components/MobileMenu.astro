@@ -1,0 +1,126 @@
+---
+// Mobile menu component for LuxCoin
+---
+
+<div class="lg:hidden">
+  <button
+    id="mobile-menu-button"
+    class="p-4 text-stone-100 hover:text-stone-300 focus:outline-none relative z-50"
+    aria-label="Toggle Menu"
+  >
+    <div id="menu-icon" class="transition-transform duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon">
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="6" x2="20" y2="6"></line>
+        <line x1="4" y1="18" x2="20" y2="18"></line>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="close-icon hidden">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </div>
+  </button>
+
+  <div id="mobile-menu" class="fixed inset-0 bg-stone-900/95 backdrop-blur-sm flex-col items-center justify-center z-40 hidden">
+    <div class="flex flex-col items-center justify-center min-h-screen">
+      <nav class="flex flex-col items-center gap-12 py-8">
+        <a href="/" class="mobile-menu-item font-serif text-4xl text-stone-100 hover:text-amber-700 transition-colors relative group">
+          Home
+          <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-amber-700 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="/collection" class="mobile-menu-item font-serif text-4xl text-stone-100 hover:text-amber-700 transition-colors relative group">
+          Collection
+          <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-amber-700 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="/about" class="mobile-menu-item font-serif text-4xl text-stone-100 hover:text-amber-700 transition-colors relative group">
+          About
+          <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-amber-700 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="/contact" class="mobile-menu-item font-serif text-4xl text-stone-100 hover:text-amber-700 transition-colors relative group">
+          Contact
+          <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-amber-700 group-hover:w-full transition-all duration-300"></span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeInDown {
+    from { 
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .mobile-menu-item {
+    opacity: 0;
+  }
+  
+  .menu-open .mobile-menu-item:nth-child(1) {
+    animation: fadeInDown 0.5s ease forwards 0.1s;
+  }
+  
+  .menu-open .mobile-menu-item:nth-child(2) {
+    animation: fadeInDown 0.5s ease forwards 0.2s;
+  }
+  
+  .menu-open .mobile-menu-item:nth-child(3) {
+    animation: fadeInDown 0.5s ease forwards 0.3s;
+  }
+  
+  .menu-open .mobile-menu-item:nth-child(4) {
+    animation: fadeInDown 0.5s ease forwards 0.4s;
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.querySelector('.menu-icon');
+  const closeIcon = document.querySelector('.close-icon');
+  
+  if (mobileMenuButton && mobileMenu && menuIcon && closeIcon) {
+    mobileMenuButton.addEventListener('click', () => {
+      // Toggle menu visibility
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+      mobileMenu.classList.toggle('menu-open');
+      
+      // Toggle icons
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+      
+      // Toggle body scroll
+      if (mobileMenu.classList.contains('flex')) {
+        document.body.style.overflow = 'hidden';
+        // Add animation to the menu
+        mobileMenu.style.animation = 'fadeIn 0.3s ease-in-out';
+      } else {
+        document.body.style.overflow = 'unset';
+      }
+    });
+    
+    // Close menu when clicking on links
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex', 'menu-open');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = 'unset';
+      });
+    });
+  }
+</script>

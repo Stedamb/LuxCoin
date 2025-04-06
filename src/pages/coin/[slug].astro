@@ -1,0 +1,64 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+// Generate static paths for all coins
+export async function getStaticPaths() {
+  const coins = await getCollection('coins');
+  return coins.map(coin => ({
+    params: { slug: coin.slug },
+    props: { coin },
+  }));
+}
+
+// Get the coin data from the props
+const { coin } = Astro.props;
+---
+
+<MainLayout title={`${coin.data.name} - LuxCoin`}>
+  <section class="pt-32 pb-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-stone-800 bg-opacity-80 rounded-sm overflow-hidden">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="p-8">
+              <img
+                src={coin.data.image}
+                alt={coin.data.name}
+                class="w-full h-auto rounded-sm"
+              />
+            </div>
+            <div class="p-8">
+              <h1 class="font-serif text-3xl md:text-4xl text-stone-100 mb-2">
+                {coin.data.name}
+              </h1>
+              <p class="text-stone-400 text-lg mb-4">{coin.data.period}</p>
+              <div class="border-t border-stone-700 my-4 pt-4">
+                <p class="text-stone-300 mb-6">{coin.body}</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-stone-100 font-serif text-2xl">
+                    {coin.data.price.toLocaleString()}€
+                  </span>
+                  <a
+                    href="#"
+                    class="bg-primary hover:bg-accent text-stone-100 px-6 py-3 rounded-sm font-serif uppercase tracking-wide transition-colors"
+                  >
+                    Acquista
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <a
+            href="/collection"
+            class="inline-block text-amber-700 hover:text-amber-600 transition-colors"
+          >
+            &larr; Torna alla collezione
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

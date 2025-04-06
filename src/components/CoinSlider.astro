@@ -1,12 +1,27 @@
 ---
-// Import the centralized coin data
-import { coins } from '../data/coins';
+// Import the content collection API
+import { getCollection } from 'astro:content';
+import type { Coin } from './react/CoinCard';
 
 // Import the React Carousel component
-import { CoinCarousel } from "./CoinCarousel";
+import { CoinCarousel } from "./react/CoinCarousel";
 
-// Get only the first 3 coins for the slider
-const featuredCoins = coins.slice(0, 3);
+// Get all coins from the content collection
+const coinsCollection = await getCollection('coins');
+
+// Transform the coins to match the expected format and get only the first 3
+const featuredCoins = coinsCollection
+  .slice(0, 3)
+  .map((coin: { data: any; body: string; slug: string }) => ({
+    ...coin.data,
+    id: coin.data.id,
+    name: coin.data.name,
+    period: coin.data.period,
+    description: coin.body,
+    price: coin.data.price,
+    image: coin.data.image,
+    slug: coin.slug
+  }));
 ---
 <section class="py-32 bg-stone-900 bg-opacity-80">
   <div class="container mx-auto px-4">
