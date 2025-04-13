@@ -22,9 +22,9 @@ export function CoinCarousel({ coins }: CoinCarouselProps) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="absolute bottom-[-40px] left-1/2 md:hidden">
-        <CarouselPrevious className="bg-primary hover:bg-accent border-0 text-stone-100 hover:text-stone-100" />
-        <CarouselNext className="bg-primary hover:bg-accent border-0 text-stone-100 hover:text-stone-100" />
+      <div className="relative py-4 flex justify-center gap-4 md:hidden">
+        <CarouselPrevious />
+        <CarouselNext />
       </div>
     </Carousel>
   );

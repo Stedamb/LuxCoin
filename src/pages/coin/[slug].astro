@@ -24,7 +24,7 @@ const { coin } = Astro.props;
           {coin.data.name}
         </h1>
         <div class="bg-stone-800 bg-opacity-80 rounded-sm overflow-hidden">
-          <div class="grid md:grid-cols-2 gap-8">
+          <div class="grid md:grid-cols-2">
             <div class="py-2 lg:pt-8 lg:pb-20">
               <CoinImageCarousel 
                 images={coin.data.images ? [coin.data.image, ...coin.data.images] : [coin.data.image]} 
@@ -32,7 +32,7 @@ const { coin } = Astro.props;
                 client:load 
               />
             </div>
-            <div class="m-2 mt-8 lg:mt-2 p-4 lg:p-8 flex flex-col justify-center items-center bg-stone-900 bg-opacity-80 rounded-sm">
+            <div class="m-2 mt-16 md:mt-2 md:ml-0 p-4 lg:p-8 flex flex-col justify-center items-center bg-stone-900 bg-opacity-80 rounded-sm">
               <h1 class="font-serif text-3xl md:text-4xl text-stone-100 mb-2 hidden lg:block">
                 {coin.data.name}
               </h1>
@@ -57,7 +57,7 @@ const { coin } = Astro.props;
         <div class="mt-8 text-center">
           <a
             href="/collection"
-            class="inline-block text-amber-700 hover:text-amber-600 transition-colors"
+            class="inline-block text-stone-100 hover:text-accent transition-colors"
           >
             &larr; Torna alla collezione
           </a>
