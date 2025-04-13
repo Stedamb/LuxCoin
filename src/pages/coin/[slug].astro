@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../../layouts/main.astro';
 import { getCollection, getEntry } from 'astro:content';
+import { CoinImageCarousel } from '../../components/react/CoinImageCarousel';
 
 // Generate static paths for all coins
 export async function getStaticPaths() {
@@ -16,20 +17,23 @@ const { coin } = Astro.props;
 ---
 
 <MainLayout title={`${coin.data.name} - LuxCoin`}>
-  <section class="pt-32 pb-16">
+  <section class="pt-24 lg:pt-32 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
+        <h1 class="font-serif text-3xl md:text-4xl text-stone-100 mb-4 lg:hidden">
+          {coin.data.name}
+        </h1>
         <div class="bg-stone-800 bg-opacity-80 rounded-sm overflow-hidden">
           <div class="grid md:grid-cols-2 gap-8">
-            <div class="p-8">
-              <img
-                src={coin.data.image}
-                alt={coin.data.name}
-                class="w-full h-auto rounded-sm"
+            <div class="py-2 lg:pt-8 lg:pb-20">
+              <CoinImageCarousel 
+                images={coin.data.images ? [coin.data.image, ...coin.data.images] : [coin.data.image]} 
+                altText={coin.data.name} 
+                client:load 
               />
             </div>
-            <div class="p-8">
-              <h1 class="font-serif text-3xl md:text-4xl text-stone-100 mb-2">
+            <div class="m-2 mt-8 lg:mt-2 p-4 lg:p-8 flex flex-col justify-center items-center bg-stone-900 bg-opacity-80 rounded-sm">
+              <h1 class="font-serif text-3xl md:text-4xl text-stone-100 mb-2 hidden lg:block">
                 {coin.data.name}
               </h1>
               <p class="text-stone-400 text-lg mb-4">{coin.data.period}</p>

@@ -9,6 +9,8 @@ const coinsCollection = defineCollection({
     period: z.string(),
     price: z.number(),
     image: z.string(),
+    images: z.array(z.string()).optional(),
+    metal: z.string().optional(),
   }),
 });
 

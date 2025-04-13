@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -22,6 +23,7 @@ const { title } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
 		<title>{title}</title>
+		<ViewTransitions />
 	</head>
 	<body class="bg-stone-900 text-stone-700">
 		<div class="relative">
@@ -31,5 +33,44 @@ const { title } = Astro.props;
 			</main>
 			<Footer />
 		</div>
-	</body>
+		<script>
+		// Enhanced page transitions script
+		document.addEventListener('astro:page-load', () => {
+		  // Add animation classes to elements after page load
+		  const animatedElements = document.querySelectorAll('.animate-on-load');
+		  animatedElements.forEach(element => {
+		    setTimeout(() => {
+		      element.classList.add('animate-visible');
+		    }, 100); // Small delay to ensure DOM is ready
+		  });
+
+		  // Add hover animations to coin items
+		  const coinItems = document.querySelectorAll('.coin-item');
+		  coinItems.forEach(item => {
+		    item.addEventListener('mouseenter', () => {
+		      item.classList.add('coin-hover');
+		    });
+		    item.addEventListener('mouseleave', () => {
+		      item.classList.remove('coin-hover');
+		    });
+		  });
+		});
+
+		// Handle transition issues
+		document.addEventListener('astro:after-swap', () => {
+		  // This runs after the new page content has been swapped in
+		  // Reset scroll position for new page
+		  window.scrollTo(0, 0);
+		});
+
+		// Fallback for browsers that don't support view transitions
+		document.addEventListener('astro:before-preparation', (event) => {
+		  // Add fallback animation classes if needed
+		  if (!document.startViewTransition) {
+		    // Use a different approach for fallback
+		    document.documentElement.classList.add('no-view-transition');
+		  }
+		});
+	</script>
+</body>
 </html>
