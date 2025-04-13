@@ -25,17 +25,17 @@ const coins = allCoins;
 	<!-- Collection Header -->
 	<section class="pt-32 pb-16">
 		<div class="container mx-auto px-4">
-			<h1 class="font-serif text-4xl md:text-5xl text-stone-100 text-center mb-8">La Nostra Collezione</h1>
-			<p class="text-xl text-center max-w-3xl mx-auto text-stone-300 mb-12">
+			<h1 class="font-serif text-xl md:text-3xl text-stone-100 text-center mb-8">La Nostra Collezione</h1>
+			<p class="text-lg text-center max-w-3xl mx-auto text-stone-300 mb-12">
 				Esplora la nostra selezione di monete romane autentiche, ciascuna con la propria storia millenaria e certificato di autenticità.
 			</p>
 			
 			<!-- Filters -->
-			<form id="filter-form" class="bg-zinc-900 bg-opacity-70 p-6 rounded-sm mb-3">
+			<form id="filter-form" class="bg-stone-900 rounded-sm mb-3">
 				<div class="grid md:grid-cols-4 gap-4">
 					<div>
 						<label for="period-filter" class="block text-stone-400 mb-2 text-sm">Periodo</label>
-						<select id="period-filter" name="period" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+						<select id="period-filter" name="period" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-4">
 							<option value="any">Tutti i periodi</option>
 							{periods.map(period => (
 								<option value={period}>{period}</option>
@@ -44,7 +44,7 @@ const coins = allCoins;
 					</div>
 					<div>
 						<label for="metal-filter" class="block text-stone-400 mb-2 text-sm">Metallo</label>
-						<select id="metal-filter" name="metal" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+						<select id="metal-filter" name="metal" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-4">
 							<option value="any">Tutti i metalli</option>
 							{metals.map(metal => (
 								<option value={metal}>{metal}</option>
@@ -53,18 +53,18 @@ const coins = allCoins;
 					</div>
 					<div>
 						<label for="price-filter" class="block text-stone-400 mb-2 text-sm">Prezzo</label>
-						<select id="price-filter" name="price" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-2">
+						<select id="price-filter" name="price" class="w-full bg-zinc-700 border border-stone-600 text-stone-200 rounded-sm px-3 py-4">
 							{prices.map(price => (
 								<option value={price.value}>{price.label}</option>
 							))}
 						</select>
 					</div>
 					<div class="flex items-end gap-2">
-						<button type="button" id="apply-filters" class="w-full bg-primary hover:bg-accent text-stone-100 py-2 px-4 rounded-sm transition-colors">
+						<button type="button" id="apply-filters" class="w-full bg-primary border border-primary font-bold cursor-pointer hover:bg-accent text-stone-100 p-4 rounded-sm transition-colors">
 							Applica Filtri
 						</button>
 						
-						<button type="button" id="reset-filters" class="hidden w-full bg-primary hover:bg-accent text-stone-100 py-2 px-4 rounded-sm transition-colors">
+						<button type="button" id="reset-filters" class="hidden w-full bg-primary border border-primary font-bold cursor-pointer hover:bg-accent text-stone-100 p-4 rounded-sm transition-colors">
 							Reimposta Filtri
 						</button>
 					</div>
@@ -91,7 +91,7 @@ const coins = allCoins;
 			<!-- No Results Message -->
 			<div id="no-results" class="hidden text-center py-12">
 				<p class="text-xl text-stone-300">Nessuna moneta trovata con i filtri selezionati.</p>
-				<button id="reset-filters" class="mt-4 bg-amber-700 hover:bg-amber-600 text-stone-100 py-2 px-6 rounded-sm transition-colors">
+				<button id="reset-filters" class="mt-4 bg-amber-700 hover:bg-amber-600 text-stone-100 py-4 px-6 rounded-sm transition-colors">
 					Reimposta Filtri
 				</button>
 			</div>
