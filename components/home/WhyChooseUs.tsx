@@ -1,4 +1,3 @@
-"use client"
 
 import { Landmark, Search, Handshake } from "lucide-react"
 

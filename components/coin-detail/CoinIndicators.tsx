@@ -1,5 +1,4 @@
-"use client"
-
+import { MotionDiv } from "@/components/ui/motion"
 import { Info } from "lucide-react"
 
 interface IndicatorBarProps {
@@ -21,9 +20,11 @@ function IndicatorBar({ label, value, max, colorClass, bgClass }: IndicatorBarPr
       </div>
       <div className="h-10 w-full bg-secondary/50 rounded overflow-hidden relative flex items-center">
         {/* Progress Bar */}
-        <div 
-          className={`h-full ${colorClass} absolute left-0 top-0 transition-all duration-1000 ease-out`}
-          style={{ width: `${percentage}%` }}
+        <MotionDiv 
+          className={`h-full ${colorClass} absolute left-0 top-0`}
+          initial={{ width: 0 }}
+          animate={{ width: `${percentage}%` }}
+          transition={{ duration: 1, ease: "easeOut" }}
         />
          {/* Background Tint */}
         <div className={`absolute inset-0 ${bgClass} opacity-20`} />

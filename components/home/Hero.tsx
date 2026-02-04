@@ -1,7 +1,5 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
+import { MotionDiv } from "@/components/ui/motion"
 import Link from "next/link"
 
 export function Hero() {
@@ -17,19 +15,19 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 container px-4 text-center">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 1 }}
             className="mb-4 inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-sm"
           >
              <span className="text-primary text-sm font-medium tracking-widest uppercase">Premium Numismatics</span>
-          </motion.div>
+          </MotionDiv>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight tracking-tight">
             Eternity in <br />
@@ -43,7 +41,7 @@ export function Hero() {
             Certified quality for the discerning collector.
           </p>
 
-          <motion.div 
+          <MotionDiv 
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 0.4, duration: 0.6 }}
@@ -59,12 +57,12 @@ export function Hero() {
                 Contattaci
               </Button>
             </Link>
-          </motion.div>
-        </motion.div>
+          </MotionDiv>
+        </MotionDiv>
       </div>
       
        {/* Scroll Indicator */}
-       <motion.div 
+       <MotionDiv 
           className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -72,7 +70,7 @@ export function Hero() {
        >
           <span className="text-xs uppercase tracking-widest">Scroll</span>
           <div className="h-12 w-0.5 bg-gradient-to-b from-white/50 to-transparent" />
-       </motion.div>
+       </MotionDiv>
     </section>
   )
 }
