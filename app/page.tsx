@@ -9,7 +9,6 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       <Navbar />
       <Hero />
-      <SanityCoinsExample />
       <RareCoinCarousel />
       <WhyChooseUs />
       <section className="py-24 text-center border-t border-white/5 bg-card/20">
