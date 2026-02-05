@@ -2,12 +2,12 @@ import { defineField, defineType } from 'sanity'
 
 export const auction = defineType({
   name: 'auction',
-  title: 'Auction',
+  title: 'Asta',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Titolo',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -23,12 +23,12 @@ export const auction = defineType({
     }),
     defineField({
         name: 'startDate',
-        title: 'Start Date',
+        title: 'Data Inizio',
         type: 'datetime'
     }),
     defineField({
         name: 'endDate',
-        title: 'End Date',
+        title: 'Data Fine',
         type: 'datetime'
     }),
     defineField({
@@ -38,12 +38,12 @@ export const auction = defineType({
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Descrizione',
       type: 'text',
     }),
     defineField({
       name: 'mainImage',
-      title: 'Main image',
+      title: 'Immagine Principale',
       type: 'image',
       options: {
         hotspot: true,

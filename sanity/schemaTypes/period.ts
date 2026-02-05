@@ -2,12 +2,12 @@ import { defineField, defineType } from 'sanity'
 
 export const period = defineType({
   name: 'period',
-  title: 'Period',
+  title: 'Periodo',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Titolo',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -23,7 +23,7 @@ export const period = defineType({
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Descrizione',
       type: 'text',
     }),
   ],

@@ -4,23 +4,36 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 
-const filterOptions = {
-  period: ["Roman Empire", "Roman Republic", "Greek", "Byzantine", "Medieval"],
-  material: ["Gold", "Silver", "Bronze"],
-  grade: ["FDC", "SPL", "BB", "MB"],
+interface FilterOption {
+  _id: string
+  title: string
+  slug: { current: string }
 }
 
 interface FilterSidebarProps {
+  categories: FilterOption[]
+  periods: FilterOption[]
+  materials: FilterOption[]
+  conditions: FilterOption[]
   selectedFilters: {
-    period: string[];
-    material: string[];
-    grade: string[];
-  };
-  onFilterChange: (type: string, value: string) => void;
-  onReset: () => void;
+    categoryIds: string[]
+    periodIds: string[]
+    materialIds: string[]
+    conditionIds: string[]
+  }
+  onFilterChange: (type: string, id: string) => void
+  onReset: () => void
 }
 
-export function FilterSidebar({ selectedFilters, onFilterChange, onReset }: FilterSidebarProps) {
+export function FilterSidebar({ 
+  categories,
+  periods,
+  materials,
+  conditions,
+  selectedFilters, 
+  onFilterChange, 
+  onReset 
+}: FilterSidebarProps) {
   return (
     <aside className="w-64 space-y-8 pr-6 hidden md:block shrink-0">
       <div>
@@ -32,66 +45,95 @@ export function FilterSidebar({ selectedFilters, onFilterChange, onReset }: Filt
         </div>
         
         <div className="space-y-6">
-          {/* Eras */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Epoca</h4>
-            <div className="space-y-2">
-              {filterOptions.period.map((item) => (
-                <div key={item} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`period-${item}`} 
-                    checked={selectedFilters.period.includes(item)}
-                    onCheckedChange={() => onFilterChange('period', item)}
-                  />
-                  <Label htmlFor={`period-${item}`} className="text-sm text-foreground/80 font-normal cursor-pointer hover:text-primary transition-colors">
-                    {item}
-                  </Label>
-                </div>
-              ))}
+          {/* Categories */}
+          {categories.length > 0 && (
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Categoria</h4>
+              <div className="space-y-2">
+                {categories.map((item) => (
+                  <div key={item._id} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`category-${item._id}`} 
+                      checked={selectedFilters.categoryIds.includes(item._id)}
+                      onCheckedChange={() => onFilterChange('categoryIds', item._id)}
+                    />
+                    <Label htmlFor={`category-${item._id}`} className="text-sm text-foreground/80 font-normal cursor-pointer hover:text-primary transition-colors">
+                      {item.title}
+                    </Label>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          <div className="h-px bg-white/5" />
+          {categories.length > 0 && <div className="h-px bg-white/5" />}
 
-          {/* Metals */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Metallo</h4>
-            <div className="space-y-2">
-              {filterOptions.material.map((item) => (
-                <div key={item} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`material-${item}`} 
-                    checked={selectedFilters.material.includes(item)}
-                    onCheckedChange={() => onFilterChange('material', item)}
-                  />
-                  <Label htmlFor={`material-${item}`} className="text-sm text-foreground/80 font-normal cursor-pointer hover:text-primary transition-colors">
-                    {item}
-                  </Label>
-                </div>
-              ))}
+          {/* Periods */}
+          {periods.length > 0 && (
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Periodo</h4>
+              <div className="space-y-2">
+                {periods.map((item) => (
+                  <div key={item._id} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`period-${item._id}`} 
+                      checked={selectedFilters.periodIds.includes(item._id)}
+                      onCheckedChange={() => onFilterChange('periodIds', item._id)}
+                    />
+                    <Label htmlFor={`period-${item._id}`} className="text-sm text-foreground/80 font-normal cursor-pointer hover:text-primary transition-colors">
+                      {item.title}
+                    </Label>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          <div className="h-px bg-white/5" />
+          {periods.length > 0 && <div className="h-px bg-white/5" />}
 
-          {/* Grades */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Conservazione</h4>
-            <div className="space-y-2">
-              {filterOptions.grade.map((item) => (
-                <div key={item} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`grade-${item}`} 
-                    checked={selectedFilters.grade.includes(item)}
-                    onCheckedChange={() => onFilterChange('grade', item)}
-                  />
-                  <Label htmlFor={`grade-${item}`} className="text-sm text-foreground/80 font-normal cursor-pointer hover:text-primary transition-colors">
-                    {item}
-                  </Label>
-                </div>
-              ))}
+          {/* Materials */}
+          {materials.length > 0 && (
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Materiale</h4>
+              <div className="space-y-2">
+                {materials.map((item) => (
+                  <div key={item._id} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`material-${item._id}`} 
+                      checked={selectedFilters.materialIds.includes(item._id)}
+                      onCheckedChange={() => onFilterChange('materialIds', item._id)}
+                    />
+                    <Label htmlFor={`material-${item._id}`} className="text-sm text-foreground/80 font-normal cursor-pointer hover:text-primary transition-colors">
+                      {item.title}
+                    </Label>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
+
+          {materials.length > 0 && <div className="h-px bg-white/5" />}
+
+          {/* Conditions */}
+          {conditions.length > 0 && (
+            <div className="space-y-3">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Condizione</h4>
+              <div className="space-y-2">
+                {conditions.map((item) => (
+                  <div key={item._id} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`condition-${item._id}`} 
+                      checked={selectedFilters.conditionIds.includes(item._id)}
+                      onCheckedChange={() => onFilterChange('conditionIds', item._id)}
+                    />
+                    <Label htmlFor={`condition-${item._id}`} className="text-sm text-foreground/80 font-normal cursor-pointer hover:text-primary transition-colors">
+                      {item.title}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </aside>

@@ -2,12 +2,12 @@ import { defineField, defineType } from 'sanity'
 
 export const material = defineType({
   name: 'material',
-  title: 'Material',
+  title: 'Materiale',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Titolo',
       type: 'string',
       validation: (rule) => rule.required(),
     }),

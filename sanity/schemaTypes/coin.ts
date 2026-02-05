@@ -2,12 +2,12 @@ import { defineField, defineType } from 'sanity'
 
 export const coin = defineType({
   name: 'coin',
-  title: 'Coin',
+  title: 'Moneta',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Titolo',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -23,58 +23,58 @@ export const coin = defineType({
     }),
     defineField({
       name: 'images',
-      title: 'Images',
+      title: 'Immagini',
       type: 'array',
       of: [{type: 'image', options: {hotspot: true}}],
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Descrizione',
       type: 'array', 
       of: [{type: 'block'}]
     }),
     defineField({
       name: 'category',
-      title: 'Category',
+      title: 'Categoria',
       type: 'reference',
       to: [{type: 'category'}]
     }),
     defineField({
       name: 'period',
-      title: 'Period',
+      title: 'Periodo',
       type: 'reference',
       to: [{type: 'period'}]
     }),
     defineField({
       name: 'material',
-      title: 'Material',
+      title: 'Materiale',
       type: 'reference',
       to: [{type: 'material'}]
     }),
     defineField({
       name: 'condition',
-      title: 'Condition',
+      title: 'Condizione',
       type: 'reference',
       to: [{type: 'condition'}]
     }),
     defineField({
       name: 'price',
-      title: 'Price',
+      title: 'Prezzo',
       type: 'number',
     }),
     defineField({
       name: 'year',
-      title: 'Year',
+      title: 'Anno',
       type: 'string',
     }),
     defineField({
       name: 'weight',
-      title: 'Weight',
+      title: 'Peso',
       type: 'string',
     }),
     defineField({
         name: 'diameter',
-        title: 'Diameter',
+        title: 'Diametro',
         type: 'string',
     }),
   ],
