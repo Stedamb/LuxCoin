@@ -59,7 +59,7 @@ export function RareCoinCarousel() {
                 Rarità Selezionate
                 </h2>
             </div>
-            <Link href="/collection">
+            <Link href="/collezione">
                  <Button variant="link" className="text-foreground hover:text-primary group">
                     Vedi Tutta la Collezione <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"/>
                  </Button>

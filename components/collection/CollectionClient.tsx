@@ -129,7 +129,7 @@ export function CollectionClient({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCoins.map((coin) => (
               <Link 
-                href={`/collection/${coin.slug.current}`} 
+                href={`/collezione/${coin.slug.current}`} 
                 key={coin._id} 
                 className="block group h-full"
               >

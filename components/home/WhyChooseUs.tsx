@@ -5,17 +5,17 @@ const features = [
   {
     icon: Search,
     title: "Autenticità Certificata",
-    description: "Ogni moneta è meticolosamente esaminata e certificata dai nostri esperti numismatici per garantirne la totale autenticità."
+    description: "Ogni moneta proviene da prestigiose case d'asta internazionali ed è accompagnata dalla fattura originale, garanzia inequivocabile di autenticità e lecita provenienza secondo le normative europee."
   },
   {
     icon: Landmark,
     title: "Patrimonio Storico",
-    description: "Offriamo solo pezzi di inestimabile valore storico, selezionati per la loro rarità e stato di conservazione superiore."
+    description: "Ogni moneta è scelta con cura e passione, guidata dall'amore per la storia e dalla volontà di condividerla con altri appassionati."
   },
   {
     icon: Handshake,
     title: "Fiducia e Discrezione",
-    description: "Costruiamo relazioni durature basate sulla trasparenza, garantendo transazioni sicure e la massima privacy per i nostri collezionisti."
+    description: "Ogni ordine è confezionato con attenzione e spedito entro 48 ore per garantire un'esperienza puntuale e sicura."
   }
 ]
 
