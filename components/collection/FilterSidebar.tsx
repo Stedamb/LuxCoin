@@ -3,6 +3,7 @@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { X } from "lucide-react"
 
 interface FilterOption {
   _id: string
@@ -23,6 +24,7 @@ interface FilterSidebarProps {
   }
   onFilterChange: (type: string, id: string) => void
   onReset: () => void
+  onClose?: () => void
 }
 
 export function FilterSidebar({ 
@@ -32,19 +34,21 @@ export function FilterSidebar({
   conditions,
   selectedFilters, 
   onFilterChange, 
-  onReset 
+  onReset,
+  onClose
 }: FilterSidebarProps) {
   return (
-    <aside className="w-64 space-y-8 pr-6 hidden md:block shrink-0">
-      <div>
-        <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-serif font-bold text-foreground">Filtra per</h3>
-             <Button variant="ghost" size="sm" onClick={onReset} className="h-auto p-0 text-xs text-muted-foreground hover:text-primary">
+    <aside className="w-full h-full md:w-64 md:pr-6 shrink-0 flex flex-col">
+      <div className="flex items-center justify-between mb-2">
+          <h3 className="text-xl font-serif font-bold text-foreground">Filtri</h3>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={onReset} className="h-8 px-2 text-xs text-muted-foreground hover:text-primary">
                 Reset
             </Button>
-        </div>
-        
-        <div className="space-y-6">
+          </div>
+      </div>
+      
+      <div className="flex-1 overflow-y-auto pr-2 -mr-2 space-y-4 scrollbar-hide">
           {/* Categories */}
           {categories.length > 0 && (
             <div className="space-y-3">
@@ -135,7 +139,15 @@ export function FilterSidebar({
             </div>
           )}
         </div>
-      </div>
+        
+        {/* Apply Button for Mobile */}
+        {onClose && (
+          <div className="pt-6 mt-auto md:hidden">
+            <Button onClick={onClose} className="w-full h-12 rounded-xl font-bold uppercase tracking-widest">
+              Applica Filtri
+            </Button>
+          </div>
+        )}
     </aside>
   )
 }
