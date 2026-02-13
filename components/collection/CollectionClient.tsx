@@ -113,8 +113,8 @@ export function CollectionClient({
       />
       
       <div className="flex-1">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-8 pb-4 border-b border-white/5 gap-4">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-end mb-4 pb-4 border-b border-white/5 gap-4">
+          <div className="flex flex-col w-full items-center gap-2">
             <h1 className="text-4xl font-serif font-bold mb-2">Catalogo {itemType === 'antiquity' ? 'Antichità' : 'Monete'}</h1>
             <p className="text-muted-foreground">
               {filteredCoins.length} {itemLabel} trovate su {initialCoins.length} disponibili.
@@ -123,7 +123,7 @@ export function CollectionClient({
           
           <div className="flex w-full md:w-auto items-center gap-4">
             {/* Search Bar */}
-            <div className="relative w-full md:w-64">
+            <div className="relative w-4/5 mx-auto md:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
                 placeholder={`Cerca ${itemLabelSingular}...`} 

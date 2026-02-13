@@ -9,6 +9,7 @@ import { Coin } from "@/sanity/lib/types"
 import { urlFor } from "@/sanity/lib/image"
 import Image from "next/image"
 import { PortableTextRenderer } from "@/components/sanity/PortableTextRenderer"
+import { CoinGallery } from "@/components/coin-detail/CoinGallery"
 
 export const revalidate = 60 // Revalidate every 60 seconds
 
@@ -34,44 +35,19 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Visual Section */}
           <div className="space-y-4">
-            {coin.images && coin.images.length > 0 ? (
-              <div className="aspect-square rounded-lg bg-zinc-900 overflow-hidden relative">
-                <Image
-                  src={urlFor(coin.images[0]).width(800).height(800).url()}
-                  alt={coin.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            ) : (
-              <div className="aspect-square rounded-lg bg-zinc-900 flex items-center justify-center">
-                <div className="w-64 h-64 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 shadow-2xl relative flex items-center justify-center">
-                  <div className="absolute inset-4 border-2 border-white/20 rounded-full" />
-                </div>
-              </div>
-            )}
-            
-            {/* Thumbnail Gallery */}
-            {coin.images && coin.images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {coin.images.slice(1, 5).map((image, idx) => (
-                  <div key={idx} className="aspect-square rounded-lg bg-zinc-900 overflow-hidden relative cursor-pointer hover:ring-2 ring-primary transition-all">
-                    <Image
-                      src={urlFor(image).width(200).height(200).url()}
-                      alt={`${coin.title} - ${idx + 2}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            <CoinGallery 
+              images={coin.images || []} 
+              title={coin.title}
+              coinGradient={coin.material?.title?.toLowerCase().includes('oro') ? "from-amber-400 to-amber-700" : "from-zinc-400 to-zinc-600"}
+            />
           </div>
 
           {/* Information Section */}
           <div className="space-y-10">
             <div>
+              <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-foreground leading-tight">
+                {coin.title}
+              </h1>
               <div className="flex items-center gap-3 mb-4 flex-wrap">
                 {coin.period && (
                   <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded tracking-wider uppercase">
@@ -89,9 +65,6 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
                   </span>
                 )}
               </div>
-              <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-white leading-tight">
-                {coin.title}
-              </h1>
               {coin.price ? (
                 <p className="text-3xl text-primary font-mono font-bold">
                   € {coin.price.toLocaleString('it-IT')}
@@ -107,6 +80,14 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
                 <PortableTextRenderer value={coin.description} />
               </div>
             )}
+
+
+            <div className="flex flex-col gap-4 p-6 bg-primary/5 border border-primary/20 rounded-xl">
+              
+              <Button variant="premium" className="w-full text-lg py-6">
+                Richiedi Informazioni
+              </Button>
+            </div>
 
             <div>
               <h3 className="text-xl font-serif mb-4 text-foreground">Scheda Tecnica</h3>
@@ -129,20 +110,6 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 p-6 bg-primary/5 border border-primary/20 rounded-xl">
-              <div className="flex items-start gap-4">
-                <ShieldCheck className="w-6 h-6 text-primary shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-foreground">Certificato di Autenticità</h4>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Ogni moneta è accompagnata da un certificato di autenticità a vita e documentazione storica completa.
-                  </p>
-                </div>
-              </div>
-              <Button variant="premium" className="w-full mt-2 text-lg py-6">
-                Richiedi Informazioni
-              </Button>
-            </div>
           </div>
         </div>
       </div>
