@@ -53,7 +53,7 @@ export function Navbar() {
             : "py-6 bg-transparent"
         )}
       >
-        <div className="container mx-auto flex items-center justify-between px-4 md:px-6">
+        <div className="container mx-auto flex items-center justify-between px-4 md:px-6 relative">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group z-50">
             <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 group-hover:bg-primary/30 transition-all border border-primary/50">
@@ -67,8 +67,8 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Navigation Links - Desktop */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Navigation Links - Desktop Centered */}
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -84,14 +84,19 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden z-50 p-2 text-primary focus:outline-none hover:bg-white/5 rounded-full transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Right side spacer for desktop / Mobile Menu Toggle */}
+          <div className="flex items-center justify-end z-50">
+            <button
+              className="md:hidden p-2 text-primary focus:outline-none hover:bg-white/5 rounded-full transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+            
+            {/* Desktop spacer to keep layout balanced if needed elsewhere */}
+            <div className="hidden md:block w-10" />
+          </div>
         </div>
       </header>
 

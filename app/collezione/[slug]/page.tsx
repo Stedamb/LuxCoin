@@ -32,7 +32,7 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
           <ArrowLeft className="w-4 h-4 mr-2" /> Torna alla Collezione
         </Link>
         
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-start">
           {/* Visual Section */}
           <div className="space-y-4">
             <CoinGallery 

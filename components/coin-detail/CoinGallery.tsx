@@ -15,6 +15,7 @@ interface CoinGalleryProps {
 export function CoinGallery({ images, title, coinGradient = "from-amber-400 to-amber-700" }: CoinGalleryProps) {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
+    const [zoomPos, setZoomPos] = React.useState({ x: 0, y: 0, active: false })
 
     React.useEffect(() => {
         if (!api) {
@@ -27,6 +28,21 @@ export function CoinGallery({ images, title, coinGradient = "from-amber-400 to-a
              setCurrent(api.selectedScrollSnap())
         })
     }, [api])
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!zoomPos.active) return
+        const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+        const x = ((e.clientX - left) / width) * 100
+        const y = ((e.clientY - top) / height) * 100
+        setZoomPos(prev => ({ ...prev, x, y }))
+    }
+
+    const toggleZoom = (e: React.MouseEvent<HTMLDivElement>) => {
+        const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+        const x = ((e.clientX - left) / width) * 100
+        const y = ((e.clientY - top) / height) * 100
+        setZoomPos(prev => ({ x, y, active: !prev.active }))
+    }
 
     if (!images || images.length === 0) {
         return (
@@ -45,23 +61,41 @@ export function CoinGallery({ images, title, coinGradient = "from-amber-400 to-a
                     opts={{
                         loop: true,
                         align: "start",
+                        watchDrag: !zoomPos.active // Disable dragging when zoomed to allow moving lens
                     }}
                  >
                     <CarouselContent>
                         {images.map((image, index) => (
                              <CarouselItem key={index} className="flex items-center justify-center">
-                                <div className="relative w-full aspect-square flex items-center justify-center">
+                                <div 
+                                    className={cn(
+                                        "relative w-full aspect-square flex items-center justify-center transition-all duration-300",
+                                        zoomPos.active ? "cursor-zoom-out" : "cursor-zoom-in"
+                                    )}
+                                    onMouseMove={handleMouseMove}
+                                    onClick={toggleZoom}
+                                >
                                     {/* Main Image container without the round mask */}
                                     <div className="w-full h-full relative overflow-hidden animate-in fade-in zoom-in duration-500 rounded-xl bg-card/10">
-                                        <Image
-                                            src={urlFor(image).width(1200).url()}
-                                            alt={`${title} - view ${index + 1}`}
-                                            fill
-                                            className="object-cover transition-transform duration-500 hover:scale-105"
-                                            priority={index === 0}
-                                        />
+                                        <div 
+                                            className="w-full h-full transition-transform duration-200 ease-out"
+                                            style={{
+                                                transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
+                                                transform: zoomPos.active ? 'scale(2.5)' : 'scale(1)'
+                                            }}
+                                        >
+                                            <Image
+                                                src={urlFor(image).width(1600).url()}
+                                                alt={`${title} - view ${index + 1}`}
+                                                fill
+                                                className="object-cover"
+                                                priority={index === 0}
+                                            />
+                                        </div>
                                         {/* Subtle Shine Effect */}
-                                        <div className="absolute inset-0 bg-linear-to-tr from-white/5 via-transparent to-transparent pointer-events-none" />
+                                        {!zoomPos.active && (
+                                            <div className="absolute inset-0 bg-linear-to-tr from-white/5 via-transparent to-transparent pointer-events-none" />
+                                        )}
                                     </div>
                                 </div>
                              </CarouselItem>
@@ -74,9 +108,6 @@ export function CoinGallery({ images, title, coinGradient = "from-amber-400 to-a
                         <CarouselNext className="pointer-events-auto h-12 w-12 bg-black/60 backdrop-blur-md border-white/10 text-white hover:bg-primary hover:text-primary-foreground opacity-0 group-hover:opacity-100 disabled:opacity-30 disabled:pointer-events-none transition-all duration-300 -right-2 group-hover:right-0" />
                     </div>
                  </Carousel>
-                 
-                 {/* Overlay Texture */}
-                  <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
              </div>
 
              {/* Thumbnails / Indicators - Scrollable */}
