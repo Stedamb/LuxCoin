@@ -10,6 +10,7 @@ import { Search } from "lucide-react"
 import { Coin } from "@/sanity/lib/types"
 import { urlFor } from "@/sanity/lib/image"
 import Image from "next/image"
+import { CoinPlaceholder } from "@/components/ui/coin-placeholder"
 
 interface FilterOption {
   _id: string
@@ -153,9 +154,7 @@ export function CollectionClient({
                           className="object-cover"
                         />
                       ) : (
-                        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 shadow-2xl relative flex items-center justify-center">
-                          <div className="absolute inset-2 border border-white/20 rounded-full" />
-                        </div>
+                        <CoinPlaceholder size="lg" />
                       )}
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
                     </div>

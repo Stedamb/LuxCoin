@@ -37,6 +37,7 @@ export interface Condition {
 
 export interface Coin {
   _id: string
+  _type: 'coin' | 'antiquity'
   title: string
   slug: {
     current: string
@@ -57,6 +58,7 @@ export interface Coin {
   year?: string
   weight?: string
   diameter?: string
+  showcase?: boolean
 }
 
 export type Antiquity = Coin

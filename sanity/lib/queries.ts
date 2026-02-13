@@ -138,3 +138,20 @@ export const coinsByPeriodQuery = groq`*[_type == "coin" && period._ref == $peri
   weight,
   diameter
 }`
+// Get items for showcase (monete and antichita with showcase flag)
+export const showcaseQuery = groq`*[_type in ["coin", "antiquity"] && showcase == true] | order(_createdAt desc) {
+  _id,
+  _type,
+  title,
+  slug,
+  images,
+  description,
+  category->{title, slug},
+  period->{title, slug},
+  material->{title, slug},
+  condition->{title, slug},
+  price,
+  year,
+  weight,
+  diameter
+}`

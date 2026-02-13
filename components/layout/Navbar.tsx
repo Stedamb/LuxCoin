@@ -5,9 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Coins, User } from "lucide-react"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +34,7 @@ export function Navbar() {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
         isScrolled
           ? "bg-background/80 backdrop-blur-md py-2 shadow-lg"
-          : "bg-transparent py-4"
+          : " py-4"
       )}
     >
       <div className="relative container mx-auto flex items-center justify-between px-4 md:px-6">
@@ -40,7 +43,7 @@ export function Navbar() {
           <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 group-hover:bg-primary/30 transition-colors border border-primary/50">
             <Coins className="h-6 w-6 text-primary" />
           </div>
-          <span className={cn("text-xl font-serif font-bold tracking-wide", isScrolled ? "text-foreground" : "text-background")}>
+          <span className={cn("text-xl font-serif font-bold tracking-wide", isScrolled || !isHomePage ? "text-foreground" : "text-background")}>
             Lux<span className="text-primary">Coin</span>
           </span>
         </Link>
@@ -51,7 +54,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={cn("text-sm font-medium  hover:text-primary transition-colors uppercase tracking-wider", isScrolled ? "text-foreground" : "text-background")}
+              className={cn("text-sm font-medium  hover:text-primary transition-colors uppercase tracking-wider", isScrolled || !isHomePage ? "text-foreground" : "text-background")}
             >
               {link.label}
             </Link>

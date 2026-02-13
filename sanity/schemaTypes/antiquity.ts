@@ -77,5 +77,11 @@ export const antiquity = defineType({
       title: 'Diametro',
       type: 'string',
     }),
+    defineField({
+      name: 'showcase',
+      title: 'In vetrina',
+      type: 'boolean',
+      initialValue: false,
+    }),
   ],
 })

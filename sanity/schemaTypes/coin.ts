@@ -77,5 +77,11 @@ export const coin = defineType({
         title: 'Diametro',
         type: 'string',
     }),
+    defineField({
+      name: 'showcase',
+      title: 'In vetrina',
+      type: 'boolean',
+      initialValue: false,
+    }),
   ],
 })

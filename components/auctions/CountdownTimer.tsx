@@ -44,26 +44,26 @@ export function CountdownTimer({ endDate }: CountdownTimerProps) {
   }
 
   return (
-    <div className="flex items-center gap-4 font-mono text-lg bg-black/40 px-4 py-2 rounded-lg border border-primary/20">
+    <div className="flex items-center gap-4 font-mono text-lg bg-background px-4 py-2 rounded-lg border border-primary/20">
       <Timer className="w-5 h-5 text-primary animate-pulse" />
       <div className="flex gap-2">
         <div className="flex flex-col items-center">
-            <span className="font-bold text-white">{timeLeft.days}</span>
-            <span className="text-[10px] uppercase text-muted-foreground">qq</span>
+            <span className="font-bold text-foreground">{timeLeft.days}</span>
+            <span className="text-[10px] uppercase text-muted-foreground">gg</span>
         </div>
         <span className="text-primary">:</span>
         <div className="flex flex-col items-center">
-            <span className="font-bold text-white">{String(timeLeft.hours).padStart(2, '0')}</span>
+            <span className="font-bold text-foreground">{String(timeLeft.hours).padStart(2, '0')}</span>
             <span className="text-[10px] uppercase text-muted-foreground">hh</span>
         </div>
         <span className="text-primary">:</span>
         <div className="flex flex-col items-center">
-            <span className="font-bold text-white">{String(timeLeft.minutes).padStart(2, '0')}</span>
+            <span className="font-bold text-foreground">{String(timeLeft.minutes).padStart(2, '0')}</span>
             <span className="text-[10px] uppercase text-muted-foreground">mm</span>
         </div>
         <span className="text-primary">:</span>
         <div className="flex flex-col items-center">
-            <span className="font-bold text-white">{String(timeLeft.seconds).padStart(2, '0')}</span>
+            <span className="font-bold text-foreground">{String(timeLeft.seconds).padStart(2, '0')}</span>
             <span className="text-[10px] uppercase text-muted-foreground">ss</span>
         </div>
       </div>
