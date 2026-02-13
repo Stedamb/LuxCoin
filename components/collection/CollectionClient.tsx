@@ -23,6 +23,7 @@ interface CollectionClientProps {
   periods: FilterOption[]
   materials: FilterOption[]
   conditions: FilterOption[]
+  itemType?: 'coin' | 'antiquity'
 }
 
 export function CollectionClient({
@@ -30,7 +31,8 @@ export function CollectionClient({
   categories,
   periods,
   materials,
-  conditions
+  conditions,
+  itemType = 'coin'
 }: CollectionClientProps) {
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedFilters, setSelectedFilters] = React.useState<{
@@ -44,6 +46,13 @@ export function CollectionClient({
     materialIds: [],
     conditionIds: [],
   })
+
+  // Labels based on itemType
+  const itemLabel = itemType === 'coin' ? 'monete' : 'antichità'
+  const itemLabelSingular = itemType === 'coin' ? 'moneta' : 'antichità'
+  const notFoundMessage = itemType === 'coin' 
+    ? 'Nessuna moneta trovata che corrisponde ai criteri di ricerca.' 
+    : 'Nessuna antichità trovata che corrisponde ai criteri di ricerca.'
 
   // Filter Logic
   const filteredCoins = React.useMemo(() => {
@@ -105,9 +114,9 @@ export function CollectionClient({
       <div className="flex-1">
         <div className="flex flex-col md:flex-row justify-between items-end mb-8 pb-4 border-b border-white/5 gap-4">
           <div>
-            <h1 className="text-4xl font-serif font-bold mb-2">Catalogo</h1>
+            <h1 className="text-4xl font-serif font-bold mb-2">Catalogo {itemType === 'antiquity' ? 'Antichità' : 'Monete'}</h1>
             <p className="text-muted-foreground">
-              {filteredCoins.length} monete trovate su {initialCoins.length} disponibili.
+              {filteredCoins.length} {itemLabel} trovate su {initialCoins.length} disponibili.
             </p>
           </div>
           
@@ -116,7 +125,7 @@ export function CollectionClient({
             <div className="relative w-full md:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
-                placeholder="Cerca moneta..." 
+                placeholder={`Cerca ${itemLabelSingular}...`} 
                 className="pl-9 bg-card/50 border-white/10 focus-visible:ring-primary"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -154,7 +163,7 @@ export function CollectionClient({
                     <div className="space-y-1 mb-3">
                       <div className="flex justify-between items-start">
                         <p className="text-xs text-primary uppercase tracking-wider font-semibold">
-                          {coin.period?.title || coin.category?.title || 'Moneta'}
+                          {coin.period?.title || coin.category?.title || 'Oggetto'}
                         </p>
                         {coin.year && (
                           <span className="text-[10px] px-1.5 py-0.5 bg-white/5 rounded text-zinc-400">
@@ -191,7 +200,7 @@ export function CollectionClient({
           </div>
         ) : (
           <div className="py-20 text-center text-muted-foreground">
-            <p className="text-lg">Nessuna moneta trovata che corrisponde ai criteri di ricerca.</p>
+            <p className="text-lg">{notFoundMessage}</p>
             <Button variant="link" onClick={resetFilters} className="mt-2 text-primary">
               Reset Filtri
             </Button>

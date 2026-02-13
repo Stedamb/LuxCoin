@@ -19,7 +19,8 @@ export function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/collezione", label: "Collezione" },
+    { href: "/collezione/monete", label: "Monete" },
+    { href: "/collezione/antichita", label: "Antichità" },
     { href: "/aste", label: "Aste online" },
     { href: "/contatti", label: "Contatti" },
   ]

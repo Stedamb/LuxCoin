@@ -6,7 +6,8 @@ import { condition } from './condition'
 import { coin } from './coin'
 import { auction } from './auction'
 import { faq } from './faq'
+import { antiquity } from './antiquity'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [category, period, material, condition, coin, auction, faq],
+  types: [category, period, material, condition, coin, auction, faq, antiquity],
 }

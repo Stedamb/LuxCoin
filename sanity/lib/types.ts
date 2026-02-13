@@ -59,6 +59,8 @@ export interface Coin {
   diameter?: string
 }
 
+export type Antiquity = Coin
+
 export interface Auction {
   _id: string
   title: string

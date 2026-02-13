@@ -18,7 +18,7 @@ export const coinsQuery = groq`*[_type == "coin"] | order(_createdAt desc) {
 }`
 
 // Get a single coin by slug
-export const coinBySlugQuery = groq`*[_type == "coin" && slug.current == $slug][0] {
+export const coinBySlugQuery = groq`*[_type in ["coin", "antiquity"] && slug.current == $slug][0] {
   _id,
   title,
   slug,
