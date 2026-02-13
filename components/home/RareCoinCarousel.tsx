@@ -21,17 +21,17 @@ export function RareCoinCarousel({ items }: RareCoinCarouselProps) {
     <section className="py-24 bg-background relative border-t border-white/5">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <div>
+            <div className="flex flex-col w-full items-center">
                 <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-2 block">Esclusività</span>
                 <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">
                 Rarità Selezionate
                 </h2>
+                <Link href="/collezione" className="mt-4">
+                    <Button variant="link" className="text-foreground hover:text-primary group">
+                        Vedi Tutta la Collezione <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"/>
+                    </Button>
+                </Link>
             </div>
-            <Link href="/collezione">
-                 <Button variant="link" className="text-foreground hover:text-primary group">
-                    Vedi Tutta la Collezione <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"/>
-                 </Button>
-            </Link>
         </div>
         
         <Carousel
