@@ -24,7 +24,7 @@ export function ReviewsCarousel({ items }: ReviewsCarouselProps) {
         <div className="text-center mb-16">
             <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-2 block">Cosa Dicono di Noi</span>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">
-                Esperienze d'Eccellenza
+                Il vostro parere, la mia garanzia!
             </h2>
         </div>
         

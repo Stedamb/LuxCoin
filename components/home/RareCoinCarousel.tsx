@@ -24,8 +24,8 @@ export function RareCoinCarousel({ items }: RareCoinCarouselProps) {
             <div className="flex flex-col w-full items-center">
                 <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-2 block">Esclusività</span>
                 <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground">
-                Rarità Selezionate
-                </h2>
+La nostra selezione
+                  </h2>
                 <Link href="/collezione" className="mt-4">
                     <Button variant="link" className="text-foreground hover:text-primary group">
                         Vedi Tutta la Collezione <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"/>

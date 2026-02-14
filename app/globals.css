@@ -84,6 +84,11 @@
 }
 
 @layer utilities {
+  @keyframes premium-border-move {
+    from { background-position: 0% 0%, 0% 0%; }
+    to { background-position: 0% 0%, 200% 0%; }
+  }
+
   .premium-gradient-border {
     background-image: linear-gradient(var(--background), var(--background)), 
                       linear-gradient(to right, #fde68a, #eab308, #f59e0b, #fde68a);
@@ -94,8 +99,54 @@
     animation: premium-border-move 4s linear infinite;
   }
 
-  @keyframes premium-border-move {
-    from { background-position: 0% 0%, 0% 0%; }
-    to { background-position: 0% 0%, 200% 0%; }
+  .btn-premium {
+    @apply bg-background text-foreground/80 shadow-lg font-bold tracking-widest uppercase text-xs transition-all duration-300;
+    background-image: linear-gradient(var(--background), var(--background)), 
+                      linear-gradient(to right, #fde68a, #eab308, #f59e0b, #fde68a);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border: 3px solid transparent;
+    background-size: 100% 100%, 200% 100%;
+    animation: premium-border-move 4s linear infinite;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-premium::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transform: rotate(30deg);
+  }
+
+  .btn-premium:hover {
+    @apply scale-[1.02] cursor-pointer text-white ;
+    background-image: linear-gradient(rgba(253, 230, 138, 0.15), rgba(245, 158, 11, 0.15)), 
+                      linear-gradient(to right, #fde68a, #eab308, #f59e0b, #fde68a);
+    box-shadow: 0 0 20px rgba(196, 159, 90, 0.3),
+                0 0 40px rgba(196, 159, 90, 0.1);
+  }
+
+  .btn-premium:hover::after {
+    left: 120%;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
   }
 }

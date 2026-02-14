@@ -6,6 +6,8 @@ import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
+import { Logo } from "./Logo"
+import { LogoCompact } from "./LogoCompact"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -56,15 +58,13 @@ export function Navbar() {
         <div className="container mx-auto flex items-center justify-between px-4 md:px-6 relative">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group z-50">
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 group-hover:bg-primary/30 transition-all border border-primary/50">
-              <Coins className="h-6 w-6 text-primary" />
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-black/20 group-hover:bg-primary/30 transition-all border border-primary/50">
+              <LogoCompact className="h-6 w-6 text-white -mr-1" />
             </div>
-            <span className={cn(
-              "text-xl font-serif font-bold tracking-wide transition-colors", 
-              (isScrolled || isMobileMenuOpen || !isHomePage) ? "text-foreground" : "text-background"
-            )}>
-              Lux<span className="text-primary">Coin</span>
-            </span>
+            <Logo className={cn(
+              "w-48 ml-2 transition-colors duration-300",
+              (isScrolled || isMobileMenuOpen || !isHomePage) ? "text-foreground" : "text-white"
+            )} />
           </Link>
 
           {/* Navigation Links - Desktop Centered */}

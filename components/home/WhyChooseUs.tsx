@@ -9,13 +9,13 @@ const features = [
   },
   {
     icon: Landmark,
-    title: "Patrimonio Storico",
-    description: "Ogni moneta è scelta con cura e passione, guidata dall'amore per la storia e dalla volontà di condividerla con altri appassionati."
+    title: "Spedizioni rapide e sicure",
+    description: "Ogni ordine è confezionato con attenzione e spedito entro 48 ore per garantire un'esperienza puntuale e sicura."
   },
   {
     icon: Handshake,
-    title: "Fiducia e Discrezione",
-    description: "Ogni ordine è confezionato con attenzione e spedito entro 48 ore per garantire un'esperienza puntuale e sicura."
+    title: "Passione autentica",
+    description: "Ogni moneta è scelta con cura e passione, guidata dall'amore per la storia e dalla volontà di condividerla con altri appassionati."
   }
 ]
 

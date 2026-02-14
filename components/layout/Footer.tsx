@@ -2,6 +2,8 @@
 
 import { Coins, Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Link from "next/link"
+import { Logo } from "./Logo"
+import { LogoCompact } from "./LogoCompact"
 
 export function Footer() {
   return (
@@ -9,14 +11,13 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 border border-primary/50">
-                <Coins className="h-5 w-5 text-primary" />
-              </div>
-              <span className="text-xl font-serif font-bold text-foreground">
-                Lux<span className="text-primary">Coin</span>
-              </span>
-            </Link>
+            <Link href="/" className="flex items-center gap-2 group z-50">
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-black/20 group-hover:bg-primary/30 transition-all border border-primary/50">
+              <LogoCompact className="h-6 w-6 text-white -mr-1" />
+            </div>
+            <Logo className="w-48 ml-2 transition-colors duration-300" />
+          </Link>
+
             <p className="text-sm leading-relaxed">
               La destinazione definitiva per i collezionisti di numismatica antica. Autenticità, storia e valore eterno.
             </p>
