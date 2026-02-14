@@ -167,8 +167,8 @@ export function CollectionClient({
         </div>
         
         <div className="flex-1">
-          <div className="flex flex-col items-center mb-8 pb-4 border-b border-white/5 space-y-6">
-            <div className="text-center space-y-2">
+          <div className="flex flex-col md:flex-row md:items-start justify-between md:mb-8 pb-8 border-b border-white/5 gap-6">
+            <div className="space-y-2 text-center md:text-left">
               <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">
                 Catalogo {itemType === 'antiquity' ? 'Antichità' : 'Monete'}
               </h1>
@@ -177,23 +177,23 @@ export function CollectionClient({
               </p>
             </div>
             
-            <div className="flex flex-col items-center w-full max-w-md gap-4">
+            <div className="flex flex-col items-center md:items-end w-full max-w-sm gap-4">
               {/* Search Bar */}
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input 
                   placeholder={`Cerca ${itemLabelSingular}...`} 
-                  className="pl-9 bg-card/40 border-white/10 focus-visible:ring-primary h-12 rounded-xl text-lg"
+                  className="pl-9 bg-card/40 border-white/10 focus-visible:ring-primary h-11 rounded-xl"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
-              {/* Filter Button - Shows on Mobile, Optional on Desktop */}
+              {/* Filter Button - Shows on Mobile */}
               <Button 
-                variant="outline" 
+                variant="link" 
                 onClick={() => setIsFilterSidebarOpen(true)}
-                className="lg:hidden w-full h-11 rounded-xl border-white/10 bg-card/20 hover:bg-card/40 gap-2 font-medium"
+                className="lg:hidden w-full h-11 rounded-xl text-primary mt-2 gap-2 font-medium"
               >
                 <SlidersHorizontal className="h-4 w-4" />
                 Filtri {(selectedFilters.categoryIds.length + selectedFilters.periodIds.length + selectedFilters.materialIds.length + selectedFilters.conditionIds.length) > 0 && 
