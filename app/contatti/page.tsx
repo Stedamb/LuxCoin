@@ -1,22 +1,27 @@
-"use client"
-
 import { Navbar } from "@/components/layout/Navbar"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Mail, MapPin, Phone, Clock, Send } from "lucide-react"
+import { Mail, MapPin, Phone, Clock } from "lucide-react"
+import { ContactForm } from "@/components/contact/ContactForm"
+import { client } from "@/sanity/lib/client"
+import { siteSettingsQuery } from "@/sanity/lib/queries"
+import { SiteSettings } from "@/sanity/lib/types"
+import type { Metadata } from "next"
 
-export default function ContactPage() {
+export const metadata: Metadata = {
+  title: "Contatti | LuxCoin",
+  description: "Contatta gli esperti di LuxCoin. Siamo a tua disposizione per valutazioni, acquisti e consulenze numismatiche.",
+}
+
+export const revalidate = 60 // Revalidate every 60 seconds
+
+export default async function ContactPage() {
+  const settings = await client.fetch<SiteSettings>(siteSettingsQuery)
+
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30 pb-20">
       <Navbar />
       
       {/* Header Section */}
-      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-primary/5">
-             <div className="absolute inset-0 bg-black/60 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black/0 to-background" />
-        </div>
+      <section className="relative py-32 flex items-center justify-center overflow-hidden">
         <div className="container relative z-10 px-4 text-center">
             <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">Parla con i Nostri Esperti</h1>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -29,42 +34,7 @@ export default function ContactPage() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
             
             {/* Contact Form */}
-            <div className="bg-card border border-white/5 rounded-2xl p-8 shadow-2xl backdrop-blur-sm">
-                <h2 className="text-2xl font-serif font-bold mb-6 flex items-center gap-2">
-                    <Send className="w-5 h-5 text-primary" /> Inviaci un Messaggio
-                </h2>
-                <form className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <Label htmlFor="firstName">Nome</Label>
-                            <Input id="firstName" placeholder="Il tuo nome" className="bg-background/50 border-white/10 h-10" />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="lastName">Cognome</Label>
-                            <Input id="lastName" placeholder="Il tuo cognome" className="bg-background/50 border-white/10 h-10" />
-                        </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="esempio@email.com" className="bg-background/50 border-white/10 h-10" />
-                    </div>
-
-                    <div className="space-y-2">
-                        <Label htmlFor="subject">Oggetto</Label>
-                        <Input id="subject" placeholder="Valutazione, Acquisto, Informazioni..." className="bg-background/50 border-white/10 h-10" />
-                    </div>
-
-                    <div className="space-y-2">
-                        <Label htmlFor="message">Messaggio</Label>
-                        <Textarea id="message" placeholder="Scrivi qui la tua richiesta..." className="bg-background/50 border-white/10 min-h-[150px] resize-none" />
-                    </div>
-
-                    <Button variant="premium" className="w-full h-12 text-lg">
-                        Invia Richiesta
-                    </Button>
-                </form>
-            </div>
+            <ContactForm />
 
             {/* Contact Info */}
             <div className="space-y-8 pt-8 lg:pt-0">
@@ -77,9 +47,8 @@ export default function ContactPage() {
                         </div>
                         <div>
                             <h3 className="font-serif font-bold text-lg mb-1">Sede Principale</h3>
-                            <p className="text-muted-foreground text-sm leading-relaxed">
-                                Via Condotti 10, <br />
-                                00187 Roma (RM), Italia
+                            <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
+                                {settings?.address || "Via Condotti 10, \n00187 Roma (RM), Italia"}
                             </p>
                         </div>
                     </div>
@@ -91,8 +60,7 @@ export default function ContactPage() {
                         <div>
                             <h3 className="font-serif font-bold text-lg mb-1">Email Diretta</h3>
                             <p className="text-muted-foreground text-sm">
-                                info@luxcoin.it <br />
-                                valutazioni@luxcoin.it
+                                {settings?.email || "info@luxcoin.it"}
                             </p>
                         </div>
                     </div>
@@ -104,7 +72,7 @@ export default function ContactPage() {
                         <div>
                             <h3 className="font-serif font-bold text-lg mb-1">Telefono</h3>
                             <p className="text-muted-foreground text-sm">
-                                +39 06 1234 5678 <br />
+                                {settings?.phone || "+39 06 1234 5678"} <br />
                                 Lun-Ven, 9:00 - 18:00
                             </p>
                         </div>

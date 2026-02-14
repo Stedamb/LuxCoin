@@ -88,3 +88,31 @@ export interface FAQ {
   answer: PortableTextBlock[]
   category?: 'general' | 'shipping' | 'payments'
 }
+
+export interface SiteSettings {
+  title?: string
+  description?: string
+  logo?: any
+  email?: string
+  phone?: string
+  address?: string
+  vatNumber?: string
+  socialLinks?: Array<{
+    platform: string
+    url: string
+  }>
+  privacyPolicy?: PortableTextBlock[]
+  termsAndConditions?: PortableTextBlock[]
+}
+
+export interface ShippingOption {
+  _id: string
+  title: string
+  description: string
+  time?: string
+  price?: string
+  recommended?: boolean
+  features?: string[]
+  icon?: string
+}
+

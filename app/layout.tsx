@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import { Footer } from "@/components/layout/Footer";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -26,6 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it">
+      <head>
+        <Script
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          strategy="afterInteractive"
+          data-cbid="9009693e-5045-4c2e-aeb1-2d992d9942ca"
+          data-blockingmode="auto"
+        />
+      </head>
       <body
         className={`${inter.variable} ${cormorant.variable} antialiased bg-background text-foreground font-sans`}
       >

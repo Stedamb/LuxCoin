@@ -155,3 +155,30 @@ export const showcaseQuery = groq`*[_type in ["coin", "antiquity"] && showcase =
   weight,
   diameter
 }`
+
+// Get site settings
+export const siteSettingsQuery = groq`*[_type == "siteSettings"][0] {
+  title,
+  description,
+  logo,
+  email,
+  phone,
+  address,
+  vatNumber,
+  socialLinks,
+  privacyPolicy,
+  termsAndConditions
+}`
+
+// Get all shipping options
+export const shippingOptionsQuery = groq`*[_type == "shippingOption"] | order(recommended desc, title asc) {
+  _id,
+  title,
+  description,
+  time,
+  price,
+  recommended,
+  features,
+  icon
+}`
+

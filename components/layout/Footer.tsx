@@ -25,20 +25,21 @@ export function Footer() {
           <div>
             <h4 className="font-bold text-foreground mb-4">Esplora</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/collezione" className="hover:text-primary transition-colors">Collezione</Link></li>
-              <li><Link href="/auctions" className="hover:text-primary transition-colors">Aste</Link></li>
-              <li><Link href="/sell" className="hover:text-primary transition-colors">Vendi con noi</Link></li>
-              <li><Link href="/about" className="hover:text-primary transition-colors">Chi Siamo</Link></li>
+              <li><Link href="/collezione/monete" className="hover:text-primary transition-colors">Monete</Link></li>
+              <li><Link href="/collezione/antichita" className="hover:text-primary transition-colors">Antichità</Link></li>
+              <li><Link href="/aste" className="hover:text-primary transition-colors">Aste</Link></li>
+              
             </ul>
           </div>
 
           <div>
              <h4 className="font-bold text-foreground mb-4">Supporto</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/contact" className="hover:text-primary transition-colors">Contattaci</Link></li>
+              <li><Link href="/contatti" className="hover:text-primary transition-colors">Contattaci</Link></li>
               <li><Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
-              <li><Link href="/shipping" className="hover:text-primary transition-colors">Spedizioni</Link></li>
-              <li><Link href="/terms" className="hover:text-primary transition-colors">Termini e Condizioni</Link></li>
+              <li><Link href="/spedizioni" className="hover:text-primary transition-colors">Spedizioni</Link></li>
+              <li><Link href="/termini-e-condizioni" className="hover:text-primary transition-colors">Termini e Condizioni</Link></li>
+              <li><Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
 
@@ -54,8 +55,8 @@ export function Footer() {
         </div>
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-             <p>&copy; {new Date().getFullYear()} LuxCoin Numismatics. P.IVA 1234567890</p>
-             <p>Designed for Excellence.</p>
+             <p>&copy; {new Date().getFullYear()} LuxCoin - P.IVA 04849590403</p>
+             <p>Designed by <Link href="https://stedamb.it" target="_blank" className="italic hover:text-primary transition-colors">Stefano D'Ambrosio</Link></p>
         </div>
       </div>
     </footer>

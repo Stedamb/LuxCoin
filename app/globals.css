@@ -7,7 +7,7 @@
   --card-foreground: hsl(0, 0%, 3.9%);
   --popover: hsl(0, 0%, 100%);
   --popover-foreground: hsl(0, 0%, 3.9%);
-  --primary: oklch(72.165% 0.09791 81.744); /* #c5a059 */
+  --primary: #c49f5a; /* #c5a059 */
   --primary-foreground: hsl(0, 0%, 98%);
   --secondary: hsl(0, 0%, 96.1%);
   --secondary-foreground: hsl(0, 0%, 9%);
