@@ -182,3 +182,14 @@ export const shippingOptionsQuery = groq`*[_type == "shippingOption"] | order(re
   icon
 }`
 
+// Get all reviews
+export const reviewsQuery = groq`*[_type == "review"] | order(date desc) {
+  _id,
+  name,
+  text,
+  rating,
+  date,
+  link,
+  platform
+}`
+

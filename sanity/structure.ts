@@ -34,8 +34,9 @@ export const structure = (S: StructureBuilder) =>
       S.documentTypeListItem('auction').title('Aste'),
       S.documentTypeListItem('faq').title('FAQ'),
       S.documentTypeListItem('shippingOption').title('Spedizioni'),
+      S.documentTypeListItem('review').title('Recensioni'),
       // List all other types but exclude the singleton
       ...S.documentTypeListItems().filter(
-        (listItem) => !['siteSettings', 'coin', 'antiquity', 'category', 'period', 'material', 'condition', 'auction', 'faq', 'shippingOption'].includes(listItem.getId()!)
+        (listItem) => !['siteSettings', 'coin', 'antiquity', 'category', 'period', 'material', 'condition', 'auction', 'faq', 'shippingOption', 'review'].includes(listItem.getId()!)
       ),
     ])

@@ -9,7 +9,8 @@ import { faq } from './faq'
 import { antiquity } from './antiquity'
 import { siteSettings } from './siteSettings'
 import { shippingOption } from './shipping'
+import { review } from './review'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [category, period, material, condition, coin, auction, faq, antiquity, siteSettings, shippingOption],
+  types: [category, period, material, condition, coin, auction, faq, antiquity, siteSettings, shippingOption, review],
 }

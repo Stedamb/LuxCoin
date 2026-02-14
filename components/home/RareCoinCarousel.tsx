@@ -86,9 +86,9 @@ export function RareCoinCarousel({ items }: RareCoinCarouselProps) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="flex justify-end gap-2 mt-8 px-4">
-             <CarouselPrevious className="static translate-y-0 translate-x-0" />
-             <CarouselNext className="static translate-y-0 translate-x-0" />
+          <div className="flex justify-center gap-2 mt-8 px-4">
+             <CarouselPrevious className="static bg-card translate-y-0 translate-x-0" />
+             <CarouselNext className="static bg-card translate-y-0 translate-x-0" />
           </div>
         </Carousel>
       </div>

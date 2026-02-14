@@ -116,3 +116,13 @@ export interface ShippingOption {
   icon?: string
 }
 
+export interface Review {
+  _id: string
+  name: string
+  text: string
+  rating: number
+  date: string
+  link?: string
+  platform?: string
+}
+
