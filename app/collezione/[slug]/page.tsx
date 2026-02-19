@@ -83,8 +83,32 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
 
 
             <div className="flex flex-col gap-4 p-6 bg-primary/5 border border-primary/20 rounded-xl">
-              
-              <Button variant="premium" className="w-full text-lg py-6">
+           
+              <div className="grid grid-cols-2 gap-4">
+                <Button variant="outline" className="h-16 flex items-center justify-center gap-2 border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 transition-all duration-300 group" asChild>
+                  <Link href="#" target="_blank">
+                    <Image 
+                      src="/logos/ebay.svg" 
+                      alt="eBay" 
+                      width={70} 
+                      height={28} 
+                      className="opacity-80 group-hover:opacity-100 transition-opacity"
+                    />
+                  </Link>
+                </Button>
+                <Button variant="outline" className="h-16 flex items-center justify-center gap-2 border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 transition-all duration-300 group" asChild>
+                  <Link href="#" target="_blank">
+                    <Image 
+                      src="/logos/vinted.svg" 
+                      alt="Vinted" 
+                      width={70} 
+                      height={28} 
+                      className="opacity-80 group-hover:opacity-100 transition-opacity"
+                    />
+                  </Link>
+                </Button>
+              </div>
+                 <Button variant="premium" className="w-full text-lg py-6">
                 Richiedi Informazioni
               </Button>
             </div>
