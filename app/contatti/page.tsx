@@ -80,9 +80,9 @@ export default async function ContactPage() {
                 </div>
                 
                  {/* Map Placeholder */}
-                <div className="aspect-video w-full rounded-2xl border border-white/10 overflow-hidden relative grayscale invert hover:grayscale-0 hover:invert-0 transition-all duration-500">
+                <div className="aspect-video w-full rounded-2xl border border-white/10 overflow-hidden relative grayscale hover:grayscale-0 hover:invert-0 transition-all duration-500">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.851752319082!2d12.479526776518536!3d41.903525571239294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f60541d2555d9%3A0xc061264c924fc9b3!2sVia%20dei%20Condotti%2C%2010%2C%2000187%20Roma%20RM!5e0!3m2!1sit!2sit!4v1707937548264!5m2!1sit!2sit" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2866.9559573828797!2d12.441070012464701!3d44.06361807096506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132cc0838851c9f5%3A0xc94910afe50d106b!2sVia%20Tavernello%2C%207%2C%2047822%20Santarcangelo%20di%20Romagna%20RN!5e0!3m2!1sit!2sit!4v1771522181431!5m2!1sit!2sit" 
                         width="100%" 
                         height="100%" 
                         style={{border:0}} 
