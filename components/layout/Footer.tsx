@@ -1,22 +1,33 @@
-"use client"
-
-import { Coins, Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import Link from "next/link"
 import { Logo } from "./Logo"
 import { LogoCompact } from "./LogoCompact"
+import { client } from "@/sanity/lib/client"
+import { siteSettingsQuery } from "@/sanity/lib/queries"
+import { SiteSettings } from "@/sanity/lib/types"
 
-export function Footer() {
+const platformIcons: Record<string, any> = {
+  Instagram,
+  Facebook,
+  Twitter,
+  LinkedIn: Linkedin,
+}
+
+export async function Footer() {
+  const settings: SiteSettings = await client.fetch(siteSettingsQuery)
+  const socialLinks = settings?.socialLinks || []
+
   return (
     <footer className="bg-background py-16 border-t border-white/10 text-muted-foreground z-10 relative">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 group z-50">
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-black/20 group-hover:bg-primary/30 transition-all border border-primary/50">
-              <LogoCompact className="h-6 w-6 text-white -mr-1" />
-            </div>
-            <Logo className="w-48 ml-2 transition-colors duration-300" />
-          </Link>
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-black/20 group-hover:bg-primary/30 transition-all border border-primary/50">
+                <LogoCompact className="h-6 w-6 text-white -mr-1" />
+              </div>
+              <Logo className="w-48 ml-2 transition-colors duration-300" />
+            </Link>
 
             <p className="text-sm leading-relaxed">
               La destinazione definitiva per i collezionisti di numismatica antica. Autenticità, storia e valore eterno.
@@ -47,16 +58,26 @@ export function Footer() {
           <div>
             <h4 className="font-bold text-foreground mb-4">Seguici</h4>
             <div className="flex gap-4">
-                <Link href="#" className="hover:text-primary transition-colors"><Instagram className="w-5 h-5" /></Link>
-                <Link href="#" className="hover:text-primary transition-colors"><Facebook className="w-5 h-5" /></Link>
-                <Link href="#" className="hover:text-primary transition-colors"><Twitter className="w-5 h-5" /></Link>
-                <Link href="#" className="hover:text-primary transition-colors"><Linkedin className="w-5 h-5" /></Link>
+              {socialLinks.map((social) => {
+                const Icon = platformIcons[social.platform] || Instagram
+                return (
+                  <Link 
+                    key={social.platform}
+                    href={social.url} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </div>
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-             <p>&copy; {new Date().getFullYear()} LuxCoin - P.IVA 04849590403</p>
+             <p>&copy; {new Date().getFullYear()} LuxCoin - P.IVA {settings?.vatNumber || "04849590403"}</p>
              <p>Designed by <Link href="https://stedamb.it" target="_blank" className="italic hover:text-primary transition-colors">Stefano D'Ambrosio</Link></p>
         </div>
       </div>
