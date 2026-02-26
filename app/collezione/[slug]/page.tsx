@@ -1,44 +1,55 @@
-import { Navbar } from "@/components/layout/Navbar"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft, ShieldCheck } from "lucide-react"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { client } from "@/sanity/lib/client"
-import { coinBySlugQuery } from "@/sanity/lib/queries"
-import { Coin } from "@/sanity/lib/types"
-import { urlFor } from "@/sanity/lib/image"
-import Image from "next/image"
-import { PortableTextRenderer } from "@/components/sanity/PortableTextRenderer"
-import { CoinGallery } from "@/components/coin-detail/CoinGallery"
+import { ArrowLeft, ShieldCheck } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { CoinGallery } from "@/components/coin-detail/CoinGallery";
+import { Navbar } from "@/components/layout/Navbar";
+import { PortableTextRenderer } from "@/components/sanity/PortableTextRenderer";
+import { Button } from "@/components/ui/button";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { coinBySlugQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+import { Coin, SiteSettings } from "@/sanity/lib/types";
 
-export const revalidate = 60 // Revalidate every 60 seconds
+export const revalidate = 60; // Revalidate every 60 seconds
 
-export default async function CoinPage(props: { params: Promise<{ slug: string }> }) {
-  const params = await props.params
-  const slug = params.slug
-  
-  const coin = await client.fetch<Coin>(coinBySlugQuery, { slug })
+export default async function CoinPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const params = await props.params;
+  const slug = params.slug;
+
+  const [coin, settings] = await Promise.all([
+    client.fetch<Coin>(coinBySlugQuery, { slug }),
+    client.fetch<SiteSettings>(siteSettingsQuery),
+  ]);
 
   if (!coin) {
-    return notFound()
+    return notFound();
   }
 
   return (
     <main className="min-h-screen bg-background text-foreground pb-20">
       <Navbar />
       <div className="pt-32 container mx-auto px-4">
-        
-        <Link href="/collezione" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8 transition-colors">
+        <Link
+          href="/collezione"
+          className="inline-flex items-center text-muted-foreground hover:text-primary mb-8 transition-colors"
+        >
           <ArrowLeft className="w-4 h-4 mr-2" /> Torna alla Collezione
         </Link>
-        
+
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-start">
           {/* Visual Section */}
           <div className="space-y-4">
-            <CoinGallery 
-              images={coin.images || []} 
+            <CoinGallery
+              images={coin.images || []}
               title={coin.title}
-              coinGradient={coin.material?.title?.toLowerCase().includes('oro') ? "from-amber-400 to-amber-700" : "from-zinc-400 to-zinc-600"}
+              coinGradient={
+                coin.material?.title?.toLowerCase().includes("oro")
+                  ? "from-amber-400 to-amber-700"
+                  : "from-zinc-400 to-zinc-600"
+              }
             />
           </div>
 
@@ -67,54 +78,45 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
               </div>
               {coin.price ? (
                 <p className="text-3xl text-primary font-mono font-bold">
-                  € {coin.price.toLocaleString('it-IT')}
+                  € {coin.price.toLocaleString("it-IT")}
                 </p>
               ) : (
-                <p className="text-xl text-muted-foreground">Prezzo su richiesta</p>
+                <p className="text-xl text-muted-foreground">
+                  Prezzo su richiesta
+                </p>
               )}
             </div>
 
             {coin.description && (
               <div className="prose prose-invert max-w-none">
-                <h3 className="text-xl font-serif mb-2 text-foreground">Descrizione</h3>
+                <h3 className="text-xl font-serif mb-2 text-foreground">
+                  Descrizione
+                </h3>
                 <PortableTextRenderer value={coin.description} />
               </div>
             )}
 
-
-            <div className="flex flex-col gap-4 p-6 bg-primary/5 border border-primary/20 rounded-xl">
-           
-              <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="h-16 flex items-center justify-center gap-2 border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 transition-all duration-300 group" asChild>
-                  <Link href="#" target="_blank">
-                    <Image 
-                      src="/logos/ebay.svg" 
-                      alt="eBay" 
-                      width={70} 
-                      height={28} 
-                      className="opacity-80 group-hover:opacity-100 transition-opacity"
-                    />
-                  </Link>
-                </Button>
-                <Button variant="outline" className="h-16 flex items-center justify-center gap-2 border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/50 transition-all duration-300 group" asChild>
-                  <Link href="#" target="_blank">
-                    <Image 
-                      src="/logos/vinted.svg" 
-                      alt="Vinted" 
-                      width={70} 
-                      height={28} 
-                      className="opacity-80 group-hover:opacity-100 transition-opacity"
-                    />
-                  </Link>
-                </Button>
-              </div>
-                 <Button variant="premium" className="w-full text-lg py-6">
+            <Button variant="default" className="w-full text-lg py-8" asChild>
+              <Link
+                href={`https://wa.me/${(settings?.phone || "+393409139580").replace(/\D/g, "")}?text=${encodeURIComponent(`Buongiorno, vorrei maggiori informazioni sulla moneta: ${coin.title}`)}`}
+                target="_blank"
+                className="flex items-center justify-center gap-2"
+              >
+                <Image
+                  src="/icons/whatsapp.svg"
+                  alt="WhatsApp"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
                 Richiedi Informazioni
-              </Button>
-            </div>
+              </Link>
+            </Button>
 
             <div>
-              <h3 className="text-xl font-serif mb-4 text-foreground">Scheda Tecnica</h3>
+              <h3 className="text-xl font-serif mb-4 text-foreground">
+                Scheda Tecnica
+              </h3>
               <div className="border border-white/10 rounded-lg overflow-hidden bg-card/20">
                 {[
                   { label: "Categoria", value: coin.category?.title },
@@ -124,19 +126,28 @@ export default async function CoinPage(props: { params: Promise<{ slug: string }
                   { label: "Condizione", value: coin.condition?.title },
                   { label: "Peso", value: coin.weight },
                   { label: "Diametro", value: coin.diameter },
-                  { label: "Riferimento", value: `LUX-${coin._id.slice(-6).toUpperCase()}` },
-                ].filter(row => row.value).map((row, i) => (
-                  <div key={i} className="flex justify-between p-4 border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors">
-                    <span className="text-muted-foreground">{row.label}</span>
-                    <span className="font-medium text-foreground">{row.value}</span>
-                  </div>
-                ))}
+                  {
+                    label: "Riferimento",
+                    value: `LUX-${coin._id.slice(-6).toUpperCase()}`,
+                  },
+                ]
+                  .filter((row) => row.value)
+                  .map((row, i) => (
+                    <div
+                      key={i}
+                      className="flex justify-between p-4 border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors"
+                    >
+                      <span className="text-muted-foreground">{row.label}</span>
+                      <span className="font-medium text-foreground">
+                        {row.value}
+                      </span>
+                    </div>
+                  ))}
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </main>
-  )
+  );
 }
