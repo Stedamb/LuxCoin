@@ -31,7 +31,7 @@ export default async function CoinPage(props: {
     <main className="min-h-screen bg-background text-foreground pb-20">
       <div className="pt-32 container mx-auto px-4">
         <Link
-          href="/collezione"
+          href={`/collezione/${coin.category?.title.toLowerCase() === "monete" ? "monete" : "antichita"}`}
           className="inline-flex items-center text-muted-foreground hover:text-primary mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" /> Torna alla Collezione

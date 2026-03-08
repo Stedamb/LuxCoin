@@ -37,9 +37,9 @@ export default async function PrivacyPage() {
           {settings?.privacyPolicy && (
             <div className="prose prose-invert max-w-none">
               <PortableTextRenderer value={settings.privacyPolicy} />
+              <CookieDeclaration />
             </div>
           )}
-          <CookieDeclaration />
         </div>
       </section>
     </main>
