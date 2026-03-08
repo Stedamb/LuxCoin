@@ -1,7 +1,6 @@
 import { ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 import { CookieDeclaration } from "@/components/analytics/CookieDeclaration";
-import { Navbar } from "@/components/layout/Navbar";
 import { PortableTextRenderer } from "@/components/sanity/PortableTextRenderer";
 import { client } from "@/sanity/lib/client";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
@@ -20,8 +19,6 @@ export default async function PrivacyPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30 pb-20">
-      <Navbar />
-
       <section className="pt-32 pb-12 container mx-auto px-4 text-center">
         <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 text-primary mb-6">
           <ShieldCheck className="w-8 h-8" />

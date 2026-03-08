@@ -1,4 +1,4 @@
-import { groq } from 'next-sanity'
+import { groq } from "next-sanity";
 
 // Get all coins with filters
 export const coinsWithFiltersQuery = groq`{
@@ -37,7 +37,7 @@ export const coinsWithFiltersQuery = groq`{
     title,
     slug
   }
-}`
+}`;
 
 // Get all antiquities with filters
 export const antiquitiesWithFiltersQuery = groq`{
@@ -76,35 +76,43 @@ export const antiquitiesWithFiltersQuery = groq`{
     title,
     slug
   }
-}`
+}`;
 
 // Get coins with dynamic filters applied
 export function buildFilteredCoinsQuery(filters: {
-  categoryIds?: string[]
-  periodIds?: string[]
-  materialIds?: string[]
-  conditionIds?: string[]
+  categoryIds?: string[];
+  periodIds?: string[];
+  materialIds?: string[];
+  conditionIds?: string[];
 }) {
-  const conditions: string[] = ['_type == "coin"']
-  
+  const conditions: string[] = ['_type == "coin"'];
+
   if (filters.categoryIds && filters.categoryIds.length > 0) {
-    conditions.push(`category._ref in [${filters.categoryIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `category._ref in [${filters.categoryIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
+
   if (filters.periodIds && filters.periodIds.length > 0) {
-    conditions.push(`period._ref in [${filters.periodIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `period._ref in [${filters.periodIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
+
   if (filters.materialIds && filters.materialIds.length > 0) {
-    conditions.push(`material._ref in [${filters.materialIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `material._ref in [${filters.materialIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
+
   if (filters.conditionIds && filters.conditionIds.length > 0) {
-    conditions.push(`condition._ref in [${filters.conditionIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `condition._ref in [${filters.conditionIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
-  const whereClause = conditions.join(' && ')
-  
+
+  const whereClause = conditions.join(" && ");
+
   return groq`*[${whereClause}] | order(_createdAt desc) {
     _id,
     title,
@@ -119,37 +127,44 @@ export function buildFilteredCoinsQuery(filters: {
     year,
     weight,
     diameter
-  }`
+  }`;
 }
-
 
 // Get antiquities with dynamic filters applied
 export function buildFilteredAntiquitiesQuery(filters: {
-  categoryIds?: string[]
-  periodIds?: string[]
-  materialIds?: string[]
-  conditionIds?: string[]
+  categoryIds?: string[];
+  periodIds?: string[];
+  materialIds?: string[];
+  conditionIds?: string[];
 }) {
-  const conditions: string[] = ['_type == "antiquity"']
-  
+  const conditions: string[] = ['_type == "antiquity"'];
+
   if (filters.categoryIds && filters.categoryIds.length > 0) {
-    conditions.push(`category._ref in [${filters.categoryIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `category._ref in [${filters.categoryIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
+
   if (filters.periodIds && filters.periodIds.length > 0) {
-    conditions.push(`period._ref in [${filters.periodIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `period._ref in [${filters.periodIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
+
   if (filters.materialIds && filters.materialIds.length > 0) {
-    conditions.push(`material._ref in [${filters.materialIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `material._ref in [${filters.materialIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
+
   if (filters.conditionIds && filters.conditionIds.length > 0) {
-    conditions.push(`condition._ref in [${filters.conditionIds.map(id => `"${id}"`).join(', ')}]`)
+    conditions.push(
+      `condition._ref in [${filters.conditionIds.map((id) => `"${id}"`).join(", ")}]`,
+    );
   }
-  
-  const whereClause = conditions.join(' && ')
-  
+
+  const whereClause = conditions.join(" && ");
+
   return groq`*[${whereClause}] | order(_createdAt desc) {
     _id,
     title,
@@ -164,5 +179,5 @@ export function buildFilteredAntiquitiesQuery(filters: {
     year,
     weight,
     diameter
-  }`
+  }`;
 }

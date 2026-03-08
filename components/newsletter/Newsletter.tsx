@@ -44,7 +44,8 @@ export function Newsletter() {
     <div className="space-y-4">
       <h4 className="font-bold text-foreground">Newsletter</h4>
       <p className="text-sm">
-        Rimani aggiornato sulle ultime novità e nuove monete.
+        Per te uno <strong className="text-primary">sconto del 15%</strong> sul
+        tuo primo acquisto.
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">

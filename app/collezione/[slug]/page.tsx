@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CoinGallery } from "@/components/coin-detail/CoinGallery";
-import { Navbar } from "@/components/layout/Navbar";
 import { PortableTextRenderer } from "@/components/sanity/PortableTextRenderer";
 import { Button } from "@/components/ui/button";
 import { client } from "@/sanity/lib/client";
@@ -30,7 +29,6 @@ export default async function CoinPage(props: {
 
   return (
     <main className="min-h-screen bg-background text-foreground pb-20">
-      <Navbar />
       <div className="pt-32 container mx-auto px-4">
         <Link
           href="/collezione"

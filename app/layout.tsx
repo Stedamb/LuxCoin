@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { Navbar } from "@/components/layout/Navbar";
+import RouteTransition from "@/components/layout/RouteTransition";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,7 +39,8 @@ export default function RootLayout({
       >
         <CookieConsent />
         <GoogleTagManager gtmId="GTM-TLHVQJ5C" />
-        {children}
+        <Navbar />
+        <RouteTransition>{children}</RouteTransition>
         <Footer />
       </body>
     </html>
