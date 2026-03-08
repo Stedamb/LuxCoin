@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import { GoogleTagManager } from "@next/third-parties/google";
+import { CookieConsent } from "@/components/analytics/CookieConsent";
+import { Footer } from "@/components/layout/Footer";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -21,9 +24,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { Analytics, GTMNoscript } from "@/components/analytics/Analytics";
-import { Footer } from "@/components/layout/Footer";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,13 +31,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it">
-      <head>
-        <Analytics />
-      </head>
       <body
         className={`${inter.variable} ${cormorant.variable} antialiased bg-background text-foreground font-sans`}
       >
-        <GTMNoscript />
+        <CookieConsent />
+        <GoogleTagManager gtmId="GTM-TLHVQJ5C" />
         {children}
         <Footer />
       </body>
