@@ -1,10 +1,11 @@
 import { ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
+import { CookieDeclaration } from "@/components/analytics/CookieDeclaration";
 import { Navbar } from "@/components/layout/Navbar";
 import { PortableTextRenderer } from "@/components/sanity/PortableTextRenderer";
 import { client } from "@/sanity/lib/client";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
-import { SiteSettings } from "@/sanity/lib/types";
+import type { SiteSettings } from "@/sanity/lib/types";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | LuxCoin",
