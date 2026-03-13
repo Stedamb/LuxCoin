@@ -24,7 +24,7 @@ export default async function PrivacyPage() {
           <ShieldCheck className="w-8 h-8" />
         </div>
         <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
-          Privacy Policy
+          Privacy & Cookie Policy
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
           La tua privacy è importante per noi. Questa informativa spiega come

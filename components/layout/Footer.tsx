@@ -106,7 +106,7 @@ export async function Footer() {
                   href="/privacy"
                   className="hover:text-primary transition-colors"
                 >
-                  Privacy Policy
+                  Privacy & Cookie Policy
                 </Link>
               </li>
             </ul>
