@@ -108,6 +108,7 @@ export function CoinGallery({
                         fill
                         className="object-cover"
                         priority={index === 0}
+                        unoptimized
                       />
                     </div>
                     {/* Subtle Shine Effect */}
@@ -147,6 +148,7 @@ export function CoinGallery({
                 alt={`${title} thumb ${index + 1}`}
                 fill
                 className="object-cover"
+                unoptimized
               />
               {current !== index && (
                 <div className="absolute inset-0 bg-black/40" />

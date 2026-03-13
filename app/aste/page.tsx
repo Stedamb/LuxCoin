@@ -70,6 +70,7 @@ export default async function AuctionsPage() {
                         alt={auction.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        unoptimized
                       />
                       <div className="absolute inset-0 bg-black/20" />
                     </div>
@@ -180,6 +181,7 @@ export default async function AuctionsPage() {
                         alt={auction.title}
                         fill
                         className="object-cover grayscale"
+                        unoptimized
                       />
                     ) : (
                       <div className="w-full h-full bg-zinc-800 flex items-center justify-center">

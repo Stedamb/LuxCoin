@@ -56,6 +56,7 @@ La nostra selezione
                                  alt={item.title}
                                  fill
                                  className="object-cover"
+                                 unoptimized
                                />
                              ) : (
                                <div className="absolute inset-2 border border-white/5 rounded-full" />

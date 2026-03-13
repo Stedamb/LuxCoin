@@ -122,6 +122,7 @@ export default async function CoinPage(props: {
                   width={20}
                   height={20}
                   className="w-5 h-5"
+                  unoptimized
                 />
                 Richiedi Informazioni
               </Link>
