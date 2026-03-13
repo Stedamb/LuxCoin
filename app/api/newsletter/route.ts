@@ -1,5 +1,9 @@
 import crypto from "node:crypto";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import { NewsletterWelcomeEmail } from "@/lib/email/newsletter-welcome";
+
+const DISCOUNT_CODE = "LUX15";
 
 export async function POST(req: Request) {
   try {
@@ -23,25 +27,19 @@ export async function POST(req: Request) {
 
     const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
 
-    // Mailchimp basic member data
     const memberData = {
       email_address: email,
       status: "subscribed",
       merge_fields: {
         FNAME: firstName || "",
         LNAME: lastName || "",
-        // NOTE: To use MESSAGE and SUBJECT, you must first create these
-        // Merge Tags in your Mailchimp Audience Settings.
-        // MESSAGE: message || "",
-        // SUBJECT: subject || "",
       },
-      tags: ["ContactForm"],
+      tags: ["Newsletter"],
     };
 
-    // Log for debugging (remove in production if desired)
-    console.log(`Subscribing ${email} to Mailchimp with subject: ${subject}`);
+    console.log(`Subscribing ${email} to Mailchimp`);
 
-    const response = await fetch(url, {
+    const mailchimpResponse = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,10 +48,12 @@ export async function POST(req: Request) {
       body: JSON.stringify(memberData),
     });
 
-    const result = await response.json();
+    const result = await mailchimpResponse.json();
+    let isNewSubscriber = true;
 
-    if (!response.ok) {
+    if (!mailchimpResponse.ok) {
       if (result.title === "Member Exists") {
+        // Update existing member data
         const memberHash = crypto
           .createHash("md5")
           .update(email.toLowerCase())
@@ -68,22 +68,65 @@ export async function POST(req: Request) {
           },
           body: JSON.stringify({
             merge_fields: memberData.merge_fields,
-            tags: ["ContactForm"],
           }),
         });
 
+        isNewSubscriber = false;
+      } else {
         return NextResponse.json(
-          { message: "Updated existing subscription" },
-          { status: 200 },
+          { error: result.detail || "Mailchimp error" },
+          { status: mailchimpResponse.status },
         );
       }
-      return NextResponse.json(
-        { error: result.detail || "Mailchimp error" },
-        { status: response.status },
-      );
     }
 
-    return NextResponse.json({ message: "Success" }, { status: 201 });
+    // Send transactional welcome email via Resend
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "newsletter@luxcoin.it";
+
+    if (RESEND_API_KEY) {
+      try {
+        const resend = new Resend(RESEND_API_KEY);
+
+        const displayName = firstName
+          ? `${firstName}${lastName ? ` ${lastName}` : ""}`
+          : undefined;
+
+        const emailSubject = isNewSubscriber
+          ? `Benvenuto in LuxCoin! 🏛️ Il tuo codice sconto ${DISCOUNT_CODE}`
+          : `Il tuo codice sconto LuxCoin – ${DISCOUNT_CODE}`;
+
+        await resend.emails.send({
+          from: `LuxCoin <${FROM_EMAIL}>`,
+          to: [email],
+          subject: emailSubject,
+          html: NewsletterWelcomeEmail({
+            firstName,
+            lastName,
+            discountCode: DISCOUNT_CODE,
+          }),
+          tags: [
+            { name: "category", value: "newsletter_welcome" },
+          ],
+        });
+
+        console.log(`Welcome email sent to ${email}`);
+      } catch (emailErr) {
+        // Log but don't fail the request if email sending fails
+        console.error("Resend email error:", emailErr);
+      }
+    } else {
+      console.warn("RESEND_API_KEY not set – skipping welcome email");
+    }
+
+    return NextResponse.json(
+      {
+        message: isNewSubscriber
+          ? "Iscrizione completata con successo"
+          : "Dati aggiornati con successo",
+      },
+      { status: isNewSubscriber ? 201 : 200 },
+    );
   } catch (error) {
     console.error("Newsletter API Error:", error);
     return NextResponse.json(
