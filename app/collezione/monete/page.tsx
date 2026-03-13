@@ -1,6 +1,13 @@
 import { CollectionClient } from "@/components/collection/CollectionClient";
 import { client } from "@/sanity/lib/client";
 import { coinsWithFiltersQuery } from "@/sanity/lib/collection-queries";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Monete",
+  description:
+    "Esplora la nostra collezione esclusiva di monete antiche in oro, argento e altri metalli preziosi.",
+};
 
 export const revalidate = 60; // Revalidate every 60 seconds
 

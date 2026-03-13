@@ -16,7 +16,10 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "LuxCoin | Premium Numismatics",
+  title: {
+    default: "LuxCoin | Premium Numismatics",
+    template: "%s | LuxCoin",
+  },
   description:
     "La destinazione definitiva per i collezionisti di numismatica antica. Autenticità, storia e valore eterno.",
   icons: {

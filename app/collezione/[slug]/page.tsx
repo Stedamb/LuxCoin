@@ -9,6 +9,22 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { coinBySlugQuery, siteSettingsQuery } from "@/sanity/lib/queries";
 import { Coin, SiteSettings } from "@/sanity/lib/types";
+import { Metadata } from "next";
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const params = await props.params;
+  const slug = params.slug;
+  const coin = await client.fetch<Coin>(coinBySlugQuery, { slug });
+
+  if (!coin) return { title: "Dettaglio Articolo" };
+
+  return {
+    title: coin.title,
+    description: `Scopri di più su ${coin.title}. Esplora la storia, il periodo ${coin.period?.title || ""} e il valore di questa moneta esclusiva.`,
+  };
+}
 
 export const revalidate = 60; // Revalidate every 60 seconds
 

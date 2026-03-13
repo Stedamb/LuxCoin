@@ -6,7 +6,7 @@ import { siteSettingsQuery } from "@/sanity/lib/queries";
 import { SiteSettings } from "@/sanity/lib/types";
 
 export const metadata: Metadata = {
-  title: "Termini e Condizioni | LuxCoin",
+  title: "Termini e Condizioni",
   description:
     "I termini e le condizioni di servizio di LuxCoin. Informazioni su vendite, garanzie e diritto di recesso.",
 };

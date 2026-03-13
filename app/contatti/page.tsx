@@ -6,7 +6,7 @@ import { siteSettingsQuery } from "@/sanity/lib/queries";
 import { SiteSettings } from "@/sanity/lib/types";
 
 export const metadata: Metadata = {
-  title: "Contatti | LuxCoin",
+  title: "Contatti",
   description:
     "Contatta gli esperti di LuxCoin. Siamo a tua disposizione per valutazioni, acquisti e consulenze numismatiche.",
 };

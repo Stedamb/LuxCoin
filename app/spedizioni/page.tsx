@@ -10,6 +10,13 @@ import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { shippingOptionsQuery } from "@/sanity/lib/queries";
 import { ShippingOption } from "@/sanity/lib/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Spedizioni",
+  description:
+    "Informazioni sulle modalità di spedizione sicura e assicurata per le tue monete antiche.",
+};
 
 export const revalidate = 60; // Revalidate every 60 seconds
 

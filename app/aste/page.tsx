@@ -9,6 +9,13 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { auctionsQuery, upcomingAuctionsQuery } from "@/sanity/lib/queries";
 import { Auction } from "@/sanity/lib/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Aste",
+  description:
+    "Partecipa alle nostre aste esclusive di monete antiche e pezzi unici di numismatica.",
+};
 
 export const revalidate = 60; // Revalidate every 60 seconds
 

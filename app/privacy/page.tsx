@@ -7,7 +7,7 @@ import { siteSettingsQuery } from "@/sanity/lib/queries";
 import type { SiteSettings } from "@/sanity/lib/types";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | LuxCoin",
+  title: "Privacy Policy",
   description:
     "Informativa sulla privacy di LuxCoin. Scopri come proteggiamo i tuoi dati personali.",
 };

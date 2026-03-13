@@ -9,6 +9,13 @@ import {
 import { client } from "@/sanity/lib/client";
 import { faqsQuery } from "@/sanity/lib/queries";
 import { FAQ } from "@/sanity/lib/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Domande Frequenti",
+  description:
+    "Risposte alle domande più comuni su acquisti, spedizioni e autenticità delle monete.",
+};
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
